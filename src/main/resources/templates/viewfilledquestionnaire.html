@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="float:right; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a th:href="@{patprofile(patientid=${patientid}, requesterid=${profid})}">Back</a></div>
+            </td>
+
+        </tr>
+    </table>
+    <table style="float:right; width: 60%;" align="center" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div align="center" class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:right; width: 20%;" align="left">
+    </table>
+</div>
+
+    <div style="clear:both; ">
+    </div>
+
+
+    <h2 th:if="${questionnaire == '1'}" class="col-md-12" align="center">There are no filled questionnaires</h2>
+
+
+    <table th:unless="${questionnaire == '1'}" style="width: 80%;" align="center">
+    <tr>
+        <th align="center">
+            <div class="col-md-12">Filled Questionnaire</div>
+        </th>
+    </tr>
+    <tr th:each="question: ${questionnaire.getQuestions()}">
+        <td align="center">
+            <div class="col-md-12"><span class="col-md-12" th:text="${'Question ' + questionStat.index + ': '}"></span>
+                <span class="col-md-12" th:text="${question}"></span></div>
+        </td>
+        <td align="center">
+            <div class="col-md-12"><span class="col-md-12" th:text="${'Answer ' + questionStat.index + ': '}"></span>
+                <span th:text="${questionnaire.getAnswers().get(__${questionStat.index}__)}" class="col-md-12"></span></div>
+        </td>
+    </tr>
+    </table>
+</body>
+</html>
+

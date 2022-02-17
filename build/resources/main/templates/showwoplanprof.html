@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div>
+    <table style="float:left; width: 20%;" align="left" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 60%;" align="center">
+        <tr>
+            <form id="w" action="#" th:action="@{/updatewoplan}" method="post">
+            <td colspan="300" align="center">
+                <input hidden form="w" type="text" class="col-md-12" align="center" th:value="${woplan.getId()}" name="woplanid" >
+                <h1 align="center">Title:<input form="w" type="text" class="col-md-12" align="center" th:value="${woplan.getTitle()}" name="title"  ></h1>
+                <h3 class="col-md-12" align="center">Goal:<input form="w" type="text" class="col-md-12" align="center" th:value="${woplan.getGoal()}" name="goal" ></h3>
+            </td>
+                </form>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a th:href="@{patprofile(patientid=${woplan.getPatient().getId()}, requesterid=${woplan.getProfessional().getId()})}">Back</a></div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<div style="clear:both; ">
+</div>
+<table>
+    <tr>
+        <td>
+            <div class="col-md-12" th:text="${woplan.getPatient().getFirstName() + ' ' + woplan.getPatient().getLastName()}">Name and Surname</div>
+        </td>
+    </tr>
+</table>
+<div style="clear:both; ">
+</div>
+
+        <table style="width: 80%;" align="center">
+
+            <tr  align="center">
+                <td>
+
+            <form th:each="workout: ${woplan.getWorkouts()}"  action="/updateexercise" method="post">
+                    <h3 th:text="${'Workout ' + workoutStat.index}"> Id </h3>
+                    <h3 th:text="${workout.getExercises()[0].getDetails()}"> Id </h3>
+                    <input hidden th:value="${workout.getId()}" name="workoutid">
+                    <h4> Title: <input  type="text" th:value="${workout.getTitle()}" name="title" placeholder="Title"></h4>
+                    <div th:each="exercise: ${workout.getExercises()}" ><div>Exercise Name: <input  type="text" th:value="${exercise.getId()}" name="exid" >
+                        <input  type="text" th:value="${exercise.getTitle()}" name="extitle" placeholder="Exercise Name">: </div>
+                    <div>Exercise Description: <input  type="text" th:value="${exercise.getDescription()}" name="descr" placeholder="Exercise Description"></div>
+                    <div>Details: <input  type="text" th:value="${exercise.getDetails()}" name="details" placeholder="Details"></div><br> </div>
+                    <div><input type="submit"  value="Add Exercise" name="submit"> <input type="submit"  value="Save Workout" name="submit"> </div>
+                    </form>
+            </td>
+            </tr>
+            <tr align="center">
+                <td align="center">
+                    <h5>
+                        <input  form="w" type="submit" name="submit" value="Add Workout" >
+                    </h5><br>
+                    <h5>
+                        <input form="w" type="submit" name="submit" value="Update Workout Plan" >
+                    </h5>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+
+</body>
+</html>
+

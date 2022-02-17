@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MVC Web application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<h1>Detail of person:</h1>
+<div th:text="'Nome Prof: ' + ${result.firstName}"> John </div>
+<div th:text="'Cognome Prof: ' + ${result.lastName}"> Smith </div>
+<div th:text="'Id: ' + ${result.id}"> <b>10 </b></div>
+<div th:text="'Altro: ' + ${result.profession} + ' ' + ${result.services[0]}"> <b>10 </b></div>
+<div th:text="'Paziente seguito: ' + ${result.patients.get(0).weight.get(0)[1]} + ', ' + ${result.patients.get(0).id} "> <b>10 </b></div>
+
+<div th:text="'Nome Pat: ' + ${result2.firstName}"> John </div>
+<div th:text="'Cognome Pat: ' + ${result2.lastName}"> Smith </div>
+<div th:text="'Id: ' + ${result2.id}"> <b>10 </b></div>
+<div th:text="'Peso: ' + ${result2.weight.get(0)[1]} "> <b>10 </b></div>
+<div th:text="'Professionista: ' + ${result2.professionals.get(0).profession} + ', ' + ${result2.professionals.get(0).id} "> <b>10 </b></div>
+
+<div th:text="'domanda: ' + ${result1.questions.get(0)}"> John </div>
+<div th:text="'risposta: ' + ${result1.answers.get(0)}"> Smith </div>
+<div th:text="'professional: ' + ${result1.professional.profession}"> Smith </div> <!---->
+<div th:text="'patient: ' + ${result1.patient.weight.get(0)[1]}"> Smith </div>
+
+<div th:text="'Titolo: ' + ${result3.title}"> John </div>
+<div th:text="'Obbiettivo: ' + ${result3.goal}"> Smith </div>
+<div th:text="'professional: ' + ${result3.professional.profession}"> Smith </div> <!---->
+<div th:text="'patient: ' + ${result3.patient.weight.get(0)[1]}"> Smith </div>
+
+<div th:text="'Titolo: ' + ${result4.title}"> John </div>
+<div th:text="'Obbiettivo: ' + ${result4.goal}"> Smith </div>
+<div th:text="'professional: ' + ${result4.professional.profession}"> Smith </div> <!---->
+<div th:text="'patient: ' + ${result4.patient.weight.get(0)[1]}"> Smith </div>
+<div th:text="'Scheda allenamento: ' + ${result4.title}"> Smith </div>
+<div th:text="${result4.workouts.get(0).workoutPlan.title}"> Smith </div>
+<div th:text="${result4.workouts.get(0).title}"> Smith </div>
+<div th:text="${result4.workouts.get(0).exercises.get(00).title}"> Smith </div>
+
+
+
+<a href=""> edit </a><br>
+<a href=""> delete </a><br>
+<a href="list"> Show the list </a>
+
+</body>
+</html>

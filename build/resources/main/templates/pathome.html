@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="float:left; width: 20%;" align="left" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 60%;" align="center">
+        <tr>
+
+            <td colspan="300">
+                <h1 class="col-md-12" align="center">Shaper</h1>
+                <h3 class="col-md-12" align="center">The Way of Fittness</h3>
+
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a href="/signin">Logout</a></div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<div style="clear:both; ">
+</div>
+<table>
+    <tr>
+        <td>
+            <div class="col-md-12" th:text="${patient.getFirstName() + ' ' + patient.getLastName()}">Name and Surname</div>
+            <div class="col-md-12"><a th:href="@{patprofile(patientid=${patient.getId()}, requesterid=${patient.getId()})}">View/Edit Profile</a></div>
+        </td>
+    </tr>
+</table>
+<div style="clear:both; ">
+</div>
+
+        <table style="float:left; width: 30%;" align="center">
+            <tr>
+                <th class="col-md-12" align="center">Diet Plans</th>
+            </tr>
+            <tr th:each="dplan: ${diets}">
+                <td> <a th:text="${dplan.getTitle()}" th:href="@{showdiet(dietid=${dplan.getId()}, patientid=${patient.getId()}, profid=${patient.getId()})}">Title</a></td>
+                <td th:text="${dplan.getGoal()}"> Goal </td>
+                <td th:text="${dplan.getProfessional().getFirstName() + ' ' + dplan.getProfessional().getLastName() }"> Professional </td>
+            </tr>
+        </table>
+        <table style="float:left; width: 30%;" align="center">
+            <tr>
+                <th class="col-md-12" align="center">Workout Plans</th>
+            </tr>
+            <tr th:each="woplan: ${workoutplans}">
+                <td> <a th:text="${woplan.getTitle()}" th:href="@{showwoplan(woplanid=${woplan.getId()}, patientid=${patient.getId()}, profid=${patient.getId()})}">Title</a></td>
+                <td th:text="${woplan.getGoal()}"> Goal </td>
+                <td th:text="${woplan.getProfessional().getFirstName() + ' ' + woplan.getProfessional().getLastName() }"> Professional </td>
+            </tr>
+        </table>
+        <table style="float:left; width: 30%;" align="center">
+            <tr>
+                <th class="col-md-12" align="center">My Professionals</th>
+            </tr>
+            <tr th:each="pr: ${professionals}">
+                <td> <a th:text="${pr.getFirstName() + ' ' + pr.getLastName()}" th:href="@{profprofile(profid=${pr.getId()}, requesterid=${patient.getId()}, my=${'1'})}">Nome e cognome</a></td>
+                <td th:text="${pr.getProfession()}"> professione </td>
+            </tr>
+            <tr>
+                <td class="col-md-12" align="center"><a href="" th:href="@{searchprof(patientid=${patient.getId()})}" class="col-md-12">Search Professionals</a></td>
+            </tr>
+            <tr>
+                <th class="col-md-12" align="center">Pending Requests</th>
+            </tr>
+            <tr th:each="r: ${requests}">
+                <td class="col-md-12" th:text="${'Professional: ' + r.getProfessional().getFirstName() + ' ' + r.getProfessional().getLastName() }">Paziente</td>
+                <td class="col-md-12" th:text="${'Services requested: ' + r.getServices()}">Paziente</td>
+            </tr>
+
+        </table>
+
+
+
+
+
+
+</body>
+</html>
+

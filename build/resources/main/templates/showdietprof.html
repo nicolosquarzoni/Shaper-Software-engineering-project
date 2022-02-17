@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div>
+    <table style="float:left; width: 20%;" align="left" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 60%;" align="center">
+        <tr>
+            <form id="diet" action="#" th:action="@{/updatediet}" method="post">
+            <td colspan="300" align="center">
+                <input hidden form="diet" type="text" class="col-md-12" align="center" th:value="${diet.getId()}" name="dietid" >
+                <h1 align="center">Title:<input form="diet" type="text" class="col-md-12" align="center" th:value="${diet.getTitle()}" name="title"  ></h1>
+                <h3 class="col-md-12" align="center">Goal:<input form="diet" type="text" class="col-md-12" align="center" th:value="${diet.getGoal()}" name="goal" ></h3>
+            </td>
+                </form>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a th:href="@{patprofile(patientid=${patient.getId()}, requesterid=${profid})}">Back</a></div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<div style="clear:both; ">
+</div>
+<table>
+    <tr>
+        <td>
+            <div class="col-md-12" th:text="${patient.getFirstName() + ' ' + patient.getLastName()}">Name and Surname</div>
+        </td>
+    </tr>
+</table>
+<div style="clear:both; ">
+</div>
+
+        <table style="width: 80%;" align="center">
+
+            <tr  align="center">
+                <td>
+
+            <form th:each="option: ${diet.getOptions()}"  action="/updateoption" method="post">
+                    <h3 th:text="${'option ' + optionStat.index}"> Id </h3>
+                    <input hidden th:value="${option.getId()}" name="optionid">
+                    <h4> Title: <input  type="text" th:value="${option.getTitle()}" name="title" placeholder="Title"></h4>
+                    <div th:each="meal: ${option.getMeals()}" ><div>Meal type: <input  type="text" th:value="${meal[0]}" name="meal0" placeholder="Meal Type">: </div>
+                        <div>Meal description: <input  type="text" th:value="${meal[1]}" name="meal1" placeholder="Meal description"></div><br> </div>
+                    <div><input type="submit"  value="Add Meal" name="submit"> <input type="submit"  value="Save Option" name="submit"> </div>
+                    </form>
+            </td>
+            </tr>
+            <tr align="center">
+                <td align="center">
+                    <h5>
+                        <input  form="diet" type="submit" name="submit" value="Add Option" >
+                    </h5><br>
+                    <h5>
+                        <input form="diet" type="submit" name="submit" value="Update Diet" >
+                    </h5>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+
+</body>
+</html>
+

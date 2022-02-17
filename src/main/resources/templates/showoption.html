@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="float:left; width: 20%;" align="left" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 60%;" align="center">
+        <tr>
+
+            <td colspan="300">
+                <h1 class="col-md-12" align="center" th:text="${diet.getTitle()}" >Titolo</h1>
+                <h3 class="col-md-12" align="center" th:text="${diet.getGoal()}">Obbiettivo</h3>
+                <h4 class="col-md-12" align="center" th:text="${'Professionista: ' + diet.getProfessional().getFirstName() + ' ' + diet.getProfessional().getLastName()}">Professional</h4>
+
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a th:href="@{showdiet(dietid=${diet.getId()}, patientid=${patient.getId()}, profid=${patient.getId()})}">Back to Diet</a></div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<div style="clear:both; ">
+</div>
+<table>
+    <tr>
+        <td>
+            <div class="col-md-12" th:text="${patient.getFirstName() + ' ' + patient.getLastName()}">Name and Surname</div>
+            <div class="col-md-12"><a href="">View/Edit Profile</a></div>
+        </td>
+    </tr>
+</table>
+<div style="clear:both; ">
+</div>
+
+        <table style="width: 80%;" align="center">
+
+            <tr th:each="meal: ${meals}" align="center">
+                <td>
+                    <div style="bold" th:text="${meal[0]}"> pasto </div>
+                    <div th:text="${meal[1]}"> dettagli </div>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+
+
+
+</body>
+</html>
+

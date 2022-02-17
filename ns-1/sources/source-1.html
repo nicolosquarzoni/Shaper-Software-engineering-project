@@ -1,0 +1,1160 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AppController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">demo</a>
+</div>
+
+<h1>Coverage Summary for Class: AppController (demo)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/34)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/563)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package demo;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">4</i>&nbsp;import org.springframework.stereotype.Controller;
+<i class="no-highlight">5</i>&nbsp;import org.springframework.ui.Model;
+<i class="no-highlight">6</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;import java.text.SimpleDateFormat;
+<i class="no-highlight">11</i>&nbsp;import java.util.*;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;@Controller
+<b class="nc"><i class="no-highlight">14</i>&nbsp;public class AppController {</b>
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    @Autowired
+<i class="no-highlight">17</i>&nbsp;    private ProfessionalRepository professionalRepository;
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;    @Autowired
+<i class="no-highlight">20</i>&nbsp;    private PatientRepository patientRepository;
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;    @Autowired
+<i class="no-highlight">23</i>&nbsp;    private QuestionnaireRepository questionnaireRepository;
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;    @Autowired
+<i class="no-highlight">26</i>&nbsp;    private DietRepository dietRepository;
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;    @Autowired
+<i class="no-highlight">29</i>&nbsp;    private OptionRepository optionRepository;
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;    @Autowired
+<i class="no-highlight">32</i>&nbsp;    private WorkoutPlanRepository workoutPlanRepository;
+<i class="no-highlight">33</i>&nbsp;
+<i class="no-highlight">34</i>&nbsp;    @Autowired
+<i class="no-highlight">35</i>&nbsp;    private WorkoutRepository workoutRepository;
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;    @Autowired
+<i class="no-highlight">38</i>&nbsp;    private ExerciseRepository exerciseRepository;
+<i class="no-highlight">39</i>&nbsp;
+<i class="no-highlight">40</i>&nbsp;    @Autowired
+<i class="no-highlight">41</i>&nbsp;    private RequestRepository requestRepository;
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;    @RequestMapping(&quot;/&quot;) //home page with repository creation for tests
+<i class="no-highlight">44</i>&nbsp;    public String homepage(){
+<b class="nc"><i class="no-highlight">45</i>&nbsp;        optionRepository.deleteAll();</b>
+<b class="nc"><i class="no-highlight">46</i>&nbsp;        dietRepository.deleteAll();</b>
+<b class="nc"><i class="no-highlight">47</i>&nbsp;        exerciseRepository.deleteAll();</b>
+<b class="nc"><i class="no-highlight">48</i>&nbsp;        workoutRepository.deleteAll();</b>
+<b class="nc"><i class="no-highlight">49</i>&nbsp;        workoutPlanRepository.deleteAll();</b>
+<b class="nc"><i class="no-highlight">50</i>&nbsp;        professionalRepository.deleteAll();</b>
+<b class="nc"><i class="no-highlight">51</i>&nbsp;        patientRepository.deleteAll();</b>
+<b class="nc"><i class="no-highlight">52</i>&nbsp;        if(!professionalRepository.findByUserName(&quot;Nicolo&quot;).isPresent()) {</b>
+<b class="nc"><i class="no-highlight">53</i>&nbsp;            professionalRepository.save(new Professional(&quot;Nicolo&quot;, &quot;Squarzoni&quot;, &quot;10/04/1992&quot;, &quot;userName&quot;,</b>
+<i class="no-highlight">54</i>&nbsp;                    &quot;password&quot;, &quot;Personal trainer&quot;, &quot;diete, workouts&quot;));
+<b class="nc"><i class="no-highlight">55</i>&nbsp;            professionalRepository.save(new Professional(&quot;Professional&quot;, &quot;1&quot;, &quot;10/09/1992&quot;, &quot;Professional1&quot;,</b>
+<i class="no-highlight">56</i>&nbsp;                    &quot;Professional1&quot;, &quot;Dietologist&quot;, &quot;dietee&quot;));
+<b class="nc"><i class="no-highlight">57</i>&nbsp;            patientRepository.save(new Patient(&quot;Paziente&quot;, &quot;1&quot;, new String[]{&quot;07/01/2022&quot;, &quot;82&quot;}, &quot;10/10/1987&quot;, &quot;paziente1&quot;,</b>
+<i class="no-highlight">58</i>&nbsp;                    &quot;paziente1&quot;));
+<b class="nc"><i class="no-highlight">59</i>&nbsp;            patientRepository.save(new Patient(&quot;Paziente&quot;, &quot;2&quot;, new String[]{&quot;11/01/2022&quot;, &quot;70&quot;}, &quot;01/12/1967&quot;, &quot;paziente2&quot;,</b>
+<i class="no-highlight">60</i>&nbsp;                    &quot;paziente2&quot;));
+<b class="nc"><i class="no-highlight">61</i>&nbsp;            Professional a = professionalRepository.findAll().iterator().next();</b>
+<b class="nc"><i class="no-highlight">62</i>&nbsp;            a.addPatient(patientRepository.findAll().iterator().next());</b>
+<b class="nc"><i class="no-highlight">63</i>&nbsp;            Patient b = patientRepository.findAll().iterator().next();</b>
+<b class="nc"><i class="no-highlight">64</i>&nbsp;            b.addProfessional(professionalRepository.findAll().iterator().next());</b>
+<b class="nc"><i class="no-highlight">65</i>&nbsp;            a.addReview(b.getId(), 5);</b>
+<b class="nc"><i class="no-highlight">66</i>&nbsp;            patientRepository.save(b);</b>
+<b class="nc"><i class="no-highlight">67</i>&nbsp;            professionalRepository.save(a);</b>
+<b class="nc"><i class="no-highlight">68</i>&nbsp;            dietRepository.save(new Diet(b, a, new String(&quot;Dieta di Paziente&quot;), new String(&quot;Aumento massa muscolare&quot;)));</b>
+<b class="nc"><i class="no-highlight">69</i>&nbsp;            Diet c = dietRepository.findAll().iterator().next();</b>
+<b class="nc"><i class="no-highlight">70</i>&nbsp;            optionRepository.save(new Option(c, new String(&quot;Giorno on&quot;)));</b>
+<b class="nc"><i class="no-highlight">71</i>&nbsp;            optionRepository.save(new Option(c, new String(&quot;Giorno off&quot;)));</b>
+<b class="nc"><i class="no-highlight">72</i>&nbsp;            optionRepository.save(new Option(c, new String(&quot;Giorno e basta&quot;)));</b>
+<b class="nc"><i class="no-highlight">73</i>&nbsp;            for (Option o : optionRepository.findAll()) {</b>
+<b class="nc"><i class="no-highlight">74</i>&nbsp;                o.addMeal(new String[]{&quot;Colazione&quot;, &quot;Yogurt greco&quot;});</b>
+<b class="nc"><i class="no-highlight">75</i>&nbsp;                o.addMeal(new String[]{&quot;Pranzo&quot;, &quot;Salmone e riso&quot;});</b>
+<b class="nc"><i class="no-highlight">76</i>&nbsp;                o.addMeal(new String[]{&quot;Spuntino&quot;, &quot;mela e mandorle&quot;});</b>
+<b class="nc"><i class="no-highlight">77</i>&nbsp;                c.addOption(o);</b>
+<b class="nc"><i class="no-highlight">78</i>&nbsp;                optionRepository.save(o);</b>
+<b class="nc"><i class="no-highlight">79</i>&nbsp;            }</b>
+<b class="nc"><i class="no-highlight">80</i>&nbsp;            c.addPatient(b);</b>
+<b class="nc"><i class="no-highlight">81</i>&nbsp;            c.addProfessional(a);</b>
+<b class="nc"><i class="no-highlight">82</i>&nbsp;            dietRepository.save(c);</b>
+<b class="nc"><i class="no-highlight">83</i>&nbsp;            workoutPlanRepository.save(new WorkoutPlan(b, a, new String(&quot;Allenamnto di Paziente&quot;), new String(&quot;Aumento massa muscolare&quot;)));</b>
+<b class="nc"><i class="no-highlight">84</i>&nbsp;            WorkoutPlan e = workoutPlanRepository.findAll().iterator().next();</b>
+<b class="nc"><i class="no-highlight">85</i>&nbsp;            workoutRepository.save(new Workout(e, new String(&quot;Giorno 1&quot;)));</b>
+<b class="nc"><i class="no-highlight">86</i>&nbsp;            Workout f = workoutRepository.findAll().iterator().next();</b>
+<b class="nc"><i class="no-highlight">87</i>&nbsp;            exerciseRepository.save(new Exercise(f, new String(&quot;Petto&quot;), new String(&quot;**PPPP***&quot;), new String(&quot;AAA&quot;)));</b>
+<b class="nc"><i class="no-highlight">88</i>&nbsp;            Exercise g = exerciseRepository.findAll().iterator().next();</b>
+<b class="nc"><i class="no-highlight">89</i>&nbsp;            f.addExercise(g);</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;            e.addPatient(b);</b>
+<b class="nc"><i class="no-highlight">91</i>&nbsp;            e.addProfessional(a);</b>
+<b class="nc"><i class="no-highlight">92</i>&nbsp;            e.addWorkout(f);</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;            workoutPlanRepository.save(e);</b>
+<b class="nc"><i class="no-highlight">94</i>&nbsp;            workoutRepository.save(f);</b>
+<b class="nc"><i class="no-highlight">95</i>&nbsp;            patientRepository.save(b);</b>
+<i class="no-highlight">96</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">97</i>&nbsp;        return &quot;homePage&quot;;</b>
+<i class="no-highlight">98</i>&nbsp;    }
+<i class="no-highlight">99</i>&nbsp;
+<i class="no-highlight">100</i>&nbsp;    @RequestMapping(&quot;/home&quot;) //home page without repository creation
+<i class="no-highlight">101</i>&nbsp;    public String home(){
+<i class="no-highlight">102</i>&nbsp;
+<b class="nc"><i class="no-highlight">103</i>&nbsp;        return &quot;homePage&quot;;</b>
+<i class="no-highlight">104</i>&nbsp;    }
+<i class="no-highlight">105</i>&nbsp;
+<i class="no-highlight">106</i>&nbsp;    @RequestMapping(&quot;/notfound&quot;)
+<i class="no-highlight">107</i>&nbsp;    public String notfound(){
+<b class="nc"><i class="no-highlight">108</i>&nbsp;        return &quot;notfound&quot;;</b>
+<i class="no-highlight">109</i>&nbsp;    }
+<i class="no-highlight">110</i>&nbsp;
+<i class="no-highlight">111</i>&nbsp;
+<i class="no-highlight">112</i>&nbsp;    @RequestMapping(&quot;/signin&quot;) //sign in page. manages exeptions
+<i class="no-highlight">113</i>&nbsp;    public String signin(
+<i class="no-highlight">114</i>&nbsp;            @RequestParam(name=&quot;error&quot;, required=false) String error, Model model){
+<b class="nc"><i class="no-highlight">115</i>&nbsp;        if (error != null) {</b>
+<b class="nc"><i class="no-highlight">116</i>&nbsp;            String errorr = error;</b>
+<b class="nc"><i class="no-highlight">117</i>&nbsp;            model.addAttribute(&quot;error&quot;, errorr);</b>
+<i class="no-highlight">118</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">119</i>&nbsp;        return &quot;signin&quot;;</b>
+<i class="no-highlight">120</i>&nbsp;    }
+<i class="no-highlight">121</i>&nbsp;
+<i class="no-highlight">122</i>&nbsp;    @RequestMapping(&quot;/accountlogin&quot; ) //logs the user in and redirect to personal home page. manages exeptions
+<i class="no-highlight">123</i>&nbsp;    public String accountlogin(
+<i class="no-highlight">124</i>&nbsp;            @RequestParam(name=&quot;userName&quot;, required=false) String username,
+<i class="no-highlight">125</i>&nbsp;            @RequestParam(name=&quot;password&quot;, required=false) String password,
+<i class="no-highlight">126</i>&nbsp;            Model model, RedirectAttributes redirectAttributes){
+<b class="nc"><i class="no-highlight">127</i>&nbsp;        if (username != null &amp;&amp; password != null){</b>
+<b class="nc"><i class="no-highlight">128</i>&nbsp;            Optional&lt;Professional&gt; pr = professionalRepository.findByUserName(username);</b>
+<b class="nc"><i class="no-highlight">129</i>&nbsp;            Optional&lt;Patient&gt; pt = patientRepository.findByUserName(username);</b>
+<b class="nc"><i class="no-highlight">130</i>&nbsp;            if (pr.isPresent()){</b>
+<b class="nc"><i class="no-highlight">131</i>&nbsp;                String pw = pr.get().getPassword();</b>
+<b class="nc"><i class="no-highlight">132</i>&nbsp;                if (pw.equals(password)){</b>
+<b class="nc"><i class="no-highlight">133</i>&nbsp;                    redirectAttributes.addAttribute(&quot;profid&quot;, pr.get().getId());</b>
+<b class="nc"><i class="no-highlight">134</i>&nbsp;                    return &quot;redirect:/profhome&quot;;</b>
+<i class="no-highlight">135</i>&nbsp;                }
+<i class="no-highlight">136</i>&nbsp;                else {
+<b class="nc"><i class="no-highlight">137</i>&nbsp;                    redirectAttributes.addAttribute(&quot;error&quot;, &quot;Username or Password not valid&quot;);</b>
+<b class="nc"><i class="no-highlight">138</i>&nbsp;                    return &quot;redirect:/signin&quot;;</b>
+<i class="no-highlight">139</i>&nbsp;                }
+<i class="no-highlight">140</i>&nbsp;
+<i class="no-highlight">141</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">142</i>&nbsp;            else if (pt.isPresent()){</b>
+<b class="nc"><i class="no-highlight">143</i>&nbsp;                String pw = pt.get().getPassword();</b>
+<b class="nc"><i class="no-highlight">144</i>&nbsp;                if (pw.equals(password)){</b>
+<b class="nc"><i class="no-highlight">145</i>&nbsp;                    redirectAttributes.addAttribute(&quot;patientid&quot;, pt.get().getId());</b>
+<b class="nc"><i class="no-highlight">146</i>&nbsp;                    return &quot;redirect:/pathome&quot;;</b>
+<i class="no-highlight">147</i>&nbsp;                }
+<i class="no-highlight">148</i>&nbsp;                else {
+<b class="nc"><i class="no-highlight">149</i>&nbsp;                    redirectAttributes.addAttribute(&quot;error&quot;, &quot;Username or Password not valid&quot;);</b>
+<b class="nc"><i class="no-highlight">150</i>&nbsp;                    return &quot;redirect:/signin&quot;;</b>
+<i class="no-highlight">151</i>&nbsp;                }
+<i class="no-highlight">152</i>&nbsp;            }
+<i class="no-highlight">153</i>&nbsp;            else {
+<b class="nc"><i class="no-highlight">154</i>&nbsp;                redirectAttributes.addAttribute(&quot;error&quot;, &quot;Username or Password not valid&quot;);</b>
+<b class="nc"><i class="no-highlight">155</i>&nbsp;                return &quot;redirect:/signin&quot;;</b>
+<i class="no-highlight">156</i>&nbsp;            }
+<i class="no-highlight">157</i>&nbsp;        }
+<i class="no-highlight">158</i>&nbsp;        else{
+<b class="nc"><i class="no-highlight">159</i>&nbsp;            redirectAttributes.addAttribute(&quot;error&quot;, &quot;Username or Password not valid&quot;);</b>
+<b class="nc"><i class="no-highlight">160</i>&nbsp;            return &quot;redirect:/signin&quot;;</b>
+<i class="no-highlight">161</i>&nbsp;
+<i class="no-highlight">162</i>&nbsp;        }
+<i class="no-highlight">163</i>&nbsp;
+<i class="no-highlight">164</i>&nbsp;
+<i class="no-highlight">165</i>&nbsp;    }
+<i class="no-highlight">166</i>&nbsp;
+<i class="no-highlight">167</i>&nbsp;    @RequestMapping(&quot;/profhome&quot;) //home page for professionals
+<i class="no-highlight">168</i>&nbsp;    public String profhome(
+<i class="no-highlight">169</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=true) Long profid, Model model){
+<i class="no-highlight">170</i>&nbsp;
+<i class="no-highlight">171</i>&nbsp;
+<b class="nc"><i class="no-highlight">172</i>&nbsp;            List&lt;Request&gt; requests = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">173</i>&nbsp;            List&lt;Patient&gt; patients = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">174</i>&nbsp;            Professional professional = professionalRepository.findById(profid).get();</b>
+<b class="nc"><i class="no-highlight">175</i>&nbsp;            for (Request r: requestRepository.findByProfessionalAndAccepted(professional, false)){</b>
+<b class="nc"><i class="no-highlight">176</i>&nbsp;            requests.add(r);</b>
+<i class="no-highlight">177</i>&nbsp;
+<b class="nc"><i class="no-highlight">178</i>&nbsp;             }</b>
+<b class="nc"><i class="no-highlight">179</i>&nbsp;            for (Patient pt: professional.getPatients()){</b>
+<b class="nc"><i class="no-highlight">180</i>&nbsp;            patients.add(pt);</b>
+<i class="no-highlight">181</i>&nbsp;
+<b class="nc"><i class="no-highlight">182</i>&nbsp;             }</b>
+<b class="nc"><i class="no-highlight">183</i>&nbsp;            model.addAttribute(&quot;professional&quot;, professional);</b>
+<b class="nc"><i class="no-highlight">184</i>&nbsp;            model.addAttribute(&quot;requests&quot;, requests);</b>
+<b class="nc"><i class="no-highlight">185</i>&nbsp;            model.addAttribute(&quot;patients&quot;, patients);</b>
+<b class="nc"><i class="no-highlight">186</i>&nbsp;            return &quot;profhome&quot;;</b>
+<i class="no-highlight">187</i>&nbsp;    }
+<i class="no-highlight">188</i>&nbsp;
+<i class="no-highlight">189</i>&nbsp;
+<i class="no-highlight">190</i>&nbsp;    @RequestMapping(&quot;/pathome&quot;) //home page for patients
+<i class="no-highlight">191</i>&nbsp;    public String pathome(
+<i class="no-highlight">192</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patientid, Model model){
+<b class="nc"><i class="no-highlight">193</i>&nbsp;        List&lt;Diet&gt; diets = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">194</i>&nbsp;        List&lt;WorkoutPlan&gt; workoutplans = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">195</i>&nbsp;        List&lt;Professional&gt; professionals = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">196</i>&nbsp;        List&lt;Request&gt; requests = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">197</i>&nbsp;        Patient patient = patientRepository.findById(patientid).get();</b>
+<b class="nc"><i class="no-highlight">198</i>&nbsp;        for (Diet d: dietRepository.findByPatient(patient)){</b>
+<b class="nc"><i class="no-highlight">199</i>&nbsp;            diets.add(d);</b>
+<b class="nc"><i class="no-highlight">200</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">201</i>&nbsp;        for (WorkoutPlan w: workoutPlanRepository.findByPatient(patient)){</b>
+<b class="nc"><i class="no-highlight">202</i>&nbsp;            workoutplans.add(w);</b>
+<b class="nc"><i class="no-highlight">203</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">204</i>&nbsp;        for (Professional pr: patient.getProfessionals()){</b>
+<b class="nc"><i class="no-highlight">205</i>&nbsp;            professionals.add(pr);</b>
+<i class="no-highlight">206</i>&nbsp;
+<b class="nc"><i class="no-highlight">207</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">208</i>&nbsp;        for (Request r: requestRepository.findByPatientAndAccepted(patient, false)){</b>
+<b class="nc"><i class="no-highlight">209</i>&nbsp;            requests.add(r);</b>
+<i class="no-highlight">210</i>&nbsp;
+<b class="nc"><i class="no-highlight">211</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">212</i>&nbsp;        model.addAttribute(&quot;patient&quot;, patient);</b>
+<b class="nc"><i class="no-highlight">213</i>&nbsp;        model.addAttribute(&quot;diets&quot;, diets);</b>
+<b class="nc"><i class="no-highlight">214</i>&nbsp;        model.addAttribute(&quot;workoutplans&quot;, workoutplans );</b>
+<b class="nc"><i class="no-highlight">215</i>&nbsp;        model.addAttribute(&quot;professionals&quot;, professionals );</b>
+<b class="nc"><i class="no-highlight">216</i>&nbsp;        model.addAttribute(&quot;requests&quot;, requests);</b>
+<b class="nc"><i class="no-highlight">217</i>&nbsp;        return &quot;pathome&quot;;</b>
+<i class="no-highlight">218</i>&nbsp;    }
+<i class="no-highlight">219</i>&nbsp;
+<i class="no-highlight">220</i>&nbsp;    @RequestMapping(&quot;/patientrequest&quot;) //creates a request to send to the professional by a patient
+<i class="no-highlight">221</i>&nbsp;    public String patientrequest(
+<i class="no-highlight">222</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patientid,
+<i class="no-highlight">223</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=true) long profid,
+<i class="no-highlight">224</i>&nbsp;            @RequestParam(name=&quot;services&quot;, required=false) String services,
+<i class="no-highlight">225</i>&nbsp;            @RequestParam(name=&quot;message&quot;, required=false) String message, Model model, RedirectAttributes redirectAttributes){
+<b class="nc"><i class="no-highlight">226</i>&nbsp;        requestRepository.save(new Request(patientRepository.findById(patientid).get(), services, message,</b>
+<b class="nc"><i class="no-highlight">227</i>&nbsp;                professionalRepository.findById(profid).get()));</b>
+<b class="nc"><i class="no-highlight">228</i>&nbsp;        redirectAttributes.addAttribute(&quot;patientid&quot;, patientid);</b>
+<b class="nc"><i class="no-highlight">229</i>&nbsp;        return &quot;redirect:/searchprof&quot;;</b>
+<i class="no-highlight">230</i>&nbsp;    }
+<i class="no-highlight">231</i>&nbsp;
+<i class="no-highlight">232</i>&nbsp;    @RequestMapping(&quot;/showrequest&quot;) //display the patient request to the professional
+<i class="no-highlight">233</i>&nbsp;    public String showrequest(
+<i class="no-highlight">234</i>&nbsp;            @RequestParam(name=&quot;reqid&quot;, required=true) long reqid,
+<i class="no-highlight">235</i>&nbsp;            Model model, RedirectAttributes redirectAttributes){
+<b class="nc"><i class="no-highlight">236</i>&nbsp;            Request request = requestRepository.findById(reqid).get();</b>
+<b class="nc"><i class="no-highlight">237</i>&nbsp;        model.addAttribute(&quot;patient&quot;, request.getPatient());</b>
+<b class="nc"><i class="no-highlight">238</i>&nbsp;        model.addAttribute(&quot;professional&quot;, request.getProfessional());</b>
+<b class="nc"><i class="no-highlight">239</i>&nbsp;        model.addAttribute(&quot;request&quot;, request);</b>
+<b class="nc"><i class="no-highlight">240</i>&nbsp;        model.addAttribute(&quot;questionnairesel&quot;, &quot;0&quot;);</b>
+<b class="nc"><i class="no-highlight">241</i>&nbsp;        return &quot;/showrequest&quot;;</b>
+<i class="no-highlight">242</i>&nbsp;    }
+<i class="no-highlight">243</i>&nbsp;
+<i class="no-highlight">244</i>&nbsp;    @RequestMapping(&quot;/sendquestionnaire&quot;) //creates and send the questionnaire to the patient
+<i class="no-highlight">245</i>&nbsp;    public String sendquestionnaire(
+<i class="no-highlight">246</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patientid,
+<i class="no-highlight">247</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=true) long profid,
+<i class="no-highlight">248</i>&nbsp;            @RequestParam(name=&quot;submit&quot;, required=true) String submit,
+<i class="no-highlight">249</i>&nbsp;            @RequestParam(name=&quot;question&quot;, required=false) String[] questions,
+<i class="no-highlight">250</i>&nbsp;            @RequestParam(name=&quot;reqid&quot;, required=true) long reqid,
+<i class="no-highlight">251</i>&nbsp;            Model model, RedirectAttributes redirectAttributes) {
+<b class="nc"><i class="no-highlight">252</i>&nbsp;        Professional professional = professionalRepository.findById(profid).get();</b>
+<b class="nc"><i class="no-highlight">253</i>&nbsp;        Patient patient = patientRepository.findById(patientid).get();</b>
+<b class="nc"><i class="no-highlight">254</i>&nbsp;        Request request = requestRepository.findById(reqid).get();</b>
+<b class="nc"><i class="no-highlight">255</i>&nbsp;        if (submit.equals(&quot;Accept Request and create questionnaire&quot;)) {</b>
+<b class="nc"><i class="no-highlight">256</i>&nbsp;            Questionnaire q = new Questionnaire(patient, professional);</b>
+<b class="nc"><i class="no-highlight">257</i>&nbsp;            q.addQuestion(&quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">258</i>&nbsp;            model.addAttribute(&quot;patient&quot;, request.getPatient());</b>
+<b class="nc"><i class="no-highlight">259</i>&nbsp;            model.addAttribute(&quot;professional&quot;, request.getProfessional());</b>
+<b class="nc"><i class="no-highlight">260</i>&nbsp;            model.addAttribute(&quot;request&quot;, request);</b>
+<b class="nc"><i class="no-highlight">261</i>&nbsp;            model.addAttribute(&quot;questionnairesel&quot;, &quot;1&quot;);</b>
+<b class="nc"><i class="no-highlight">262</i>&nbsp;            model.addAttribute(&quot;questionnaire&quot;, q);</b>
+<b class="nc"><i class="no-highlight">263</i>&nbsp;            return &quot;/showrequest&quot;;</b>
+<b class="nc"><i class="no-highlight">264</i>&nbsp;        } else if (submit.equals(&quot;Add Question&quot;)) {</b>
+<b class="nc"><i class="no-highlight">265</i>&nbsp;            Questionnaire q = new Questionnaire(patient, professional);</b>
+<b class="nc"><i class="no-highlight">266</i>&nbsp;            ArrayList&lt;String&gt; Aquestions = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">267</i>&nbsp;            for (String question : questions) {</b>
+<b class="nc"><i class="no-highlight">268</i>&nbsp;                Aquestions.add(question);</b>
+<i class="no-highlight">269</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">270</i>&nbsp;            Aquestions.add(&quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">271</i>&nbsp;            q.setQuestions(Aquestions);</b>
+<b class="nc"><i class="no-highlight">272</i>&nbsp;            model.addAttribute(&quot;patient&quot;, request.getPatient());</b>
+<b class="nc"><i class="no-highlight">273</i>&nbsp;            model.addAttribute(&quot;professional&quot;, request.getProfessional());</b>
+<b class="nc"><i class="no-highlight">274</i>&nbsp;            model.addAttribute(&quot;request&quot;, request);</b>
+<b class="nc"><i class="no-highlight">275</i>&nbsp;            model.addAttribute(&quot;questionnairesel&quot;, &quot;1&quot;);</b>
+<b class="nc"><i class="no-highlight">276</i>&nbsp;            model.addAttribute(&quot;questionnaire&quot;, q);</b>
+<b class="nc"><i class="no-highlight">277</i>&nbsp;            return &quot;/showrequest&quot;;</b>
+<b class="nc"><i class="no-highlight">278</i>&nbsp;        } else if (submit.equals(&quot;Send Questionnaire&quot;)) {</b>
+<b class="nc"><i class="no-highlight">279</i>&nbsp;            Questionnaire q = new Questionnaire(patient, professional);</b>
+<b class="nc"><i class="no-highlight">280</i>&nbsp;            ArrayList&lt;String&gt; Aquestions = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">281</i>&nbsp;            ArrayList&lt;String&gt; emptyanswers = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">282</i>&nbsp;            for (String question : questions) {</b>
+<b class="nc"><i class="no-highlight">283</i>&nbsp;                Aquestions.add(question);</b>
+<b class="nc"><i class="no-highlight">284</i>&nbsp;                emptyanswers.add(&quot;&quot;);</b>
+<i class="no-highlight">285</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">286</i>&nbsp;            q.setQuestions(Aquestions);</b>
+<b class="nc"><i class="no-highlight">287</i>&nbsp;            q.setAnswers(emptyanswers);</b>
+<b class="nc"><i class="no-highlight">288</i>&nbsp;            questionnaireRepository.save(q);</b>
+<b class="nc"><i class="no-highlight">289</i>&nbsp;            request.setAccepted(true);</b>
+<b class="nc"><i class="no-highlight">290</i>&nbsp;            requestRepository.save(request);</b>
+<b class="nc"><i class="no-highlight">291</i>&nbsp;            patient.addProfessional(professional);</b>
+<b class="nc"><i class="no-highlight">292</i>&nbsp;            patientRepository.save(patient);</b>
+<b class="nc"><i class="no-highlight">293</i>&nbsp;            professional.addPatient(patient);</b>
+<b class="nc"><i class="no-highlight">294</i>&nbsp;            professionalRepository.save(professional);</b>
+<b class="nc"><i class="no-highlight">295</i>&nbsp;            redirectAttributes.addAttribute(&quot;profid&quot;, professional.getId());</b>
+<i class="no-highlight">296</i>&nbsp;
+<b class="nc"><i class="no-highlight">297</i>&nbsp;            return &quot;redirect:/profhome&quot;;</b>
+<i class="no-highlight">298</i>&nbsp;        }
+<i class="no-highlight">299</i>&nbsp;        else{
+<b class="nc"><i class="no-highlight">300</i>&nbsp;            return &quot;/error&quot;;</b>
+<i class="no-highlight">301</i>&nbsp;        }
+<i class="no-highlight">302</i>&nbsp;    }
+<i class="no-highlight">303</i>&nbsp;
+<i class="no-highlight">304</i>&nbsp;
+<i class="no-highlight">305</i>&nbsp;    @RequestMapping(&quot;/sendfilledquestionnaire&quot;) //fills the questionnaire with the patient&#39;s answers and saves it in the repository
+<i class="no-highlight">306</i>&nbsp;    public String sendfilledquestionnaire(
+<i class="no-highlight">307</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patientid,
+<i class="no-highlight">308</i>&nbsp;            @RequestParam(name=&quot;questionnaireid&quot;, required=true) long questionnaireid,
+<i class="no-highlight">309</i>&nbsp;            @RequestParam(name=&quot;answer&quot;, required=true) String[] answers,
+<i class="no-highlight">310</i>&nbsp;            Model model, RedirectAttributes redirectAttributes) {
+<b class="nc"><i class="no-highlight">311</i>&nbsp;        Questionnaire questionnaire = questionnaireRepository.findById(questionnaireid).get();</b>
+<b class="nc"><i class="no-highlight">312</i>&nbsp;        ArrayList&lt;String&gt; Aanswers = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">313</i>&nbsp;        for (String answer : answers) {</b>
+<b class="nc"><i class="no-highlight">314</i>&nbsp;            Aanswers.add(answer);</b>
+<i class="no-highlight">315</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">316</i>&nbsp;        questionnaire.setAnswers(Aanswers);</b>
+<b class="nc"><i class="no-highlight">317</i>&nbsp;        questionnaire.setAnswered(true);</b>
+<b class="nc"><i class="no-highlight">318</i>&nbsp;        questionnaireRepository.save(questionnaire);</b>
+<b class="nc"><i class="no-highlight">319</i>&nbsp;        redirectAttributes.addAttribute(&quot;patientid&quot;, patientid);</b>
+<b class="nc"><i class="no-highlight">320</i>&nbsp;        return &quot;redirect:/pathome&quot;;</b>
+<i class="no-highlight">321</i>&nbsp;    }
+<i class="no-highlight">322</i>&nbsp;
+<i class="no-highlight">323</i>&nbsp;
+<i class="no-highlight">324</i>&nbsp;    @RequestMapping(&quot;/viewfilledquestionnaire&quot;) //displays the filled questionnaire
+<i class="no-highlight">325</i>&nbsp;    public String viewfilledquestionnaire(
+<i class="no-highlight">326</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patientid,
+<i class="no-highlight">327</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=true) long profid,
+<i class="no-highlight">328</i>&nbsp;            Model model) {
+<b class="nc"><i class="no-highlight">329</i>&nbsp;        Patient patient = patientRepository.findById(patientid).get();</b>
+<b class="nc"><i class="no-highlight">330</i>&nbsp;        Professional professional = professionalRepository.findById(profid).get();</b>
+<b class="nc"><i class="no-highlight">331</i>&nbsp;        model.addAttribute(&quot;patientid&quot;, patientid);</b>
+<b class="nc"><i class="no-highlight">332</i>&nbsp;        model.addAttribute(&quot;profid&quot;, profid);</b>
+<b class="nc"><i class="no-highlight">333</i>&nbsp;        if (questionnaireRepository.findByProfessionalAndPatient(professional, patient).iterator().hasNext()) {</b>
+<b class="nc"><i class="no-highlight">334</i>&nbsp;            Questionnaire questionnaire = questionnaireRepository.findByProfessionalAndPatient(professional, patient).iterator().next();</b>
+<b class="nc"><i class="no-highlight">335</i>&nbsp;            model.addAttribute(&quot;questionnaire&quot;, questionnaire);</b>
+<b class="nc"><i class="no-highlight">336</i>&nbsp;        }</b>
+<i class="no-highlight">337</i>&nbsp;        else{
+<b class="nc"><i class="no-highlight">338</i>&nbsp;            model.addAttribute(&quot;questionnaire&quot;, &quot;1&quot;);</b>
+<i class="no-highlight">339</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">340</i>&nbsp;        Questionnaire questionnaire = questionnaireRepository.findByProfessionalAndPatient(professional, patient).iterator().next();</b>
+<b class="nc"><i class="no-highlight">341</i>&nbsp;        model.addAttribute(&quot;patientid&quot;, patientid);</b>
+<b class="nc"><i class="no-highlight">342</i>&nbsp;        model.addAttribute(&quot;profid&quot;, profid);</b>
+<b class="nc"><i class="no-highlight">343</i>&nbsp;        model.addAttribute(&quot;questionnaire&quot;, questionnaire);</b>
+<b class="nc"><i class="no-highlight">344</i>&nbsp;        return &quot;viewfilledquestionnaire&quot;;</b>
+<i class="no-highlight">345</i>&nbsp;    }
+<i class="no-highlight">346</i>&nbsp;
+<i class="no-highlight">347</i>&nbsp;    @RequestMapping(&quot;/newaccount&quot;) //new account create page with general information
+<i class="no-highlight">348</i>&nbsp;    public String newaccount(
+<i class="no-highlight">349</i>&nbsp;            @RequestParam(name=&quot;error&quot;, required=false) String error, Model model){
+<b class="nc"><i class="no-highlight">350</i>&nbsp;        if (error != null) {</b>
+<b class="nc"><i class="no-highlight">351</i>&nbsp;            String errorr = error;</b>
+<b class="nc"><i class="no-highlight">352</i>&nbsp;            model.addAttribute(&quot;error&quot;, errorr);</b>
+<i class="no-highlight">353</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">354</i>&nbsp;        return &quot;newaccount&quot;;</b>
+<i class="no-highlight">355</i>&nbsp;    }
+<i class="no-highlight">356</i>&nbsp;
+<i class="no-highlight">357</i>&nbsp;    @RequestMapping(&quot;/newaccountcreate&quot; ) // second new account create page dedicated for professional and patient profiles
+<i class="no-highlight">358</i>&nbsp;    public String newaccountcreate(
+<i class="no-highlight">359</i>&nbsp;            @RequestParam(name=&quot;firstName&quot;, required=false) String firstname,
+<i class="no-highlight">360</i>&nbsp;            @RequestParam(name=&quot;lastName&quot;, required=false) String lastname,
+<i class="no-highlight">361</i>&nbsp;            @RequestParam(name=&quot;dateofbirth&quot;, required=false) String dateofbirth,
+<i class="no-highlight">362</i>&nbsp;            @RequestParam(name=&quot;userName&quot;, required=false) String username,
+<i class="no-highlight">363</i>&nbsp;            @RequestParam(name=&quot;account&quot;, required=true) String account,
+<i class="no-highlight">364</i>&nbsp;            @RequestParam(name=&quot;password&quot;, required=false) String password,
+<i class="no-highlight">365</i>&nbsp;            @RequestParam(name=&quot;repeatpassword&quot;, required=false) String rpassword,
+<i class="no-highlight">366</i>&nbsp;            Model model, RedirectAttributes redirectAttributes
+<i class="no-highlight">367</i>&nbsp;            ){
+<b class="nc"><i class="no-highlight">368</i>&nbsp;        if (firstname != null &amp;&amp; lastname != null &amp;&amp; dateofbirth != null &amp;&amp; username != null &amp;&amp; account!= null &amp;&amp; password != null &amp;&amp;</b>
+<b class="nc"><i class="no-highlight">369</i>&nbsp;        rpassword != null &amp;&amp; password.equals(rpassword)){</b>
+<b class="nc"><i class="no-highlight">370</i>&nbsp;             if (account.equals(&quot;pro&quot;)){</b>
+<b class="nc"><i class="no-highlight">371</i>&nbsp;                Professional pr = new Professional(firstname, lastname, dateofbirth, username,</b>
+<i class="no-highlight">372</i>&nbsp;                        password, new String(&quot;&quot;), new String(&quot;&quot;));
+<b class="nc"><i class="no-highlight">373</i>&nbsp;                professionalRepository.save(pr);</b>
+<b class="nc"><i class="no-highlight">374</i>&nbsp;                redirectAttributes.addAttribute(&quot;id&quot;, pr.getId());</b>
+<b class="nc"><i class="no-highlight">375</i>&nbsp;                return &quot;redirect:/newaccountprof&quot;;</b>
+<i class="no-highlight">376</i>&nbsp;            }
+<i class="no-highlight">377</i>&nbsp;            else {
+<b class="nc"><i class="no-highlight">378</i>&nbsp;                SimpleDateFormat formatter = new SimpleDateFormat(&quot;dd/MM/yyyy&quot;);</b>
+<b class="nc"><i class="no-highlight">379</i>&nbsp;                Date date = new Date();</b>
+<b class="nc"><i class="no-highlight">380</i>&nbsp;                System.out.println(formatter.format(date));</b>
+<b class="nc"><i class="no-highlight">381</i>&nbsp;                String[] detailweight = new String[]{formatter.format(date),new String(&quot;&quot;)};</b>
+<b class="nc"><i class="no-highlight">382</i>&nbsp;                Patient pt = new Patient(firstname, lastname, detailweight, dateofbirth, username, password);</b>
+<b class="nc"><i class="no-highlight">383</i>&nbsp;                patientRepository.save(pt);</b>
+<b class="nc"><i class="no-highlight">384</i>&nbsp;                redirectAttributes.addAttribute(&quot;id&quot;, pt.getId());</b>
+<b class="nc"><i class="no-highlight">385</i>&nbsp;                redirectAttributes.addAttribute(&quot;account&quot;, account);</b>
+<b class="nc"><i class="no-highlight">386</i>&nbsp;                return &quot;redirect:/newaccountpatient&quot;;</b>
+<i class="no-highlight">387</i>&nbsp;            }
+<i class="no-highlight">388</i>&nbsp;        }
+<i class="no-highlight">389</i>&nbsp;        else{
+<b class="nc"><i class="no-highlight">390</i>&nbsp;            redirectAttributes.addAttribute(&quot;error&quot;, &quot;Form not correctly filled, try again&quot;);</b>
+<b class="nc"><i class="no-highlight">391</i>&nbsp;            return &quot;redirect:/newaccount&quot;;</b>
+<i class="no-highlight">392</i>&nbsp;
+<i class="no-highlight">393</i>&nbsp;        }
+<i class="no-highlight">394</i>&nbsp;
+<i class="no-highlight">395</i>&nbsp;
+<i class="no-highlight">396</i>&nbsp;    }
+<i class="no-highlight">397</i>&nbsp;
+<i class="no-highlight">398</i>&nbsp;    @RequestMapping(&quot;/newaccountpatient&quot;) //displays the second form for new account patient
+<i class="no-highlight">399</i>&nbsp;    public String newaccountpatient(@RequestParam(name=&quot;id&quot;, required=false) String id,
+<i class="no-highlight">400</i>&nbsp;                                    @RequestParam(name=&quot;account&quot;, required=false) String account,
+<i class="no-highlight">401</i>&nbsp;                                    @RequestParam(name=&quot;error&quot;, required=false) String error,
+<i class="no-highlight">402</i>&nbsp;                                    Model model){
+<b class="nc"><i class="no-highlight">403</i>&nbsp;        model.addAttribute(&quot;id&quot;, id);</b>
+<b class="nc"><i class="no-highlight">404</i>&nbsp;        model.addAttribute(&quot;account&quot;, account);</b>
+<b class="nc"><i class="no-highlight">405</i>&nbsp;        model.addAttribute(&quot;error&quot;, error);</b>
+<b class="nc"><i class="no-highlight">406</i>&nbsp;        return &quot;newaccountpatient&quot;;</b>
+<i class="no-highlight">407</i>&nbsp;    }
+<i class="no-highlight">408</i>&nbsp;
+<i class="no-highlight">409</i>&nbsp;    @RequestMapping(&quot;/newaccountprof&quot;) //displays the second form for new account professional
+<i class="no-highlight">410</i>&nbsp;    public String newaccountprof(@RequestParam(name=&quot;id&quot;, required=false) String id,
+<i class="no-highlight">411</i>&nbsp;                                 @RequestParam(name=&quot;account&quot;, required=false) String account,
+<i class="no-highlight">412</i>&nbsp;                                 @RequestParam(name=&quot;error&quot;, required=false) String error,
+<i class="no-highlight">413</i>&nbsp;                                 Model model){
+<b class="nc"><i class="no-highlight">414</i>&nbsp;        model.addAttribute(&quot;id&quot;, id);</b>
+<b class="nc"><i class="no-highlight">415</i>&nbsp;        model.addAttribute(&quot;account&quot;, account);</b>
+<b class="nc"><i class="no-highlight">416</i>&nbsp;        model.addAttribute(&quot;error&quot;, error);</b>
+<b class="nc"><i class="no-highlight">417</i>&nbsp;        return &quot;newaccountprof&quot;;</b>
+<i class="no-highlight">418</i>&nbsp;    }
+<i class="no-highlight">419</i>&nbsp;
+<i class="no-highlight">420</i>&nbsp;    @RequestMapping(&quot;/newaccountcreatepr&quot;) //saves the new profile in the repository
+<i class="no-highlight">421</i>&nbsp;    public String newaccountcreatepr(
+<i class="no-highlight">422</i>&nbsp;            @RequestParam(name=&quot;id&quot;, required=false) Long id,
+<i class="no-highlight">423</i>&nbsp;            @RequestParam(name=&quot;profession&quot;, required=false) String profession,
+<i class="no-highlight">424</i>&nbsp;            @RequestParam(name=&quot;services&quot;, required=false) String services,
+<i class="no-highlight">425</i>&nbsp;            Model model, RedirectAttributes redirectAttributes){
+<b class="nc"><i class="no-highlight">426</i>&nbsp;        if (profession != null &amp;&amp; services != null){</b>
+<b class="nc"><i class="no-highlight">427</i>&nbsp;                Optional&lt;Professional&gt; pr = professionalRepository.findById(id);</b>
+<b class="nc"><i class="no-highlight">428</i>&nbsp;                pr.get().updateProfession(profession);</b>
+<b class="nc"><i class="no-highlight">429</i>&nbsp;                pr.get().updateServices(services);</b>
+<b class="nc"><i class="no-highlight">430</i>&nbsp;                professionalRepository.save(pr.get());</b>
+<b class="nc"><i class="no-highlight">431</i>&nbsp;                return &quot;redirect:/signin&quot;;</b>
+<i class="no-highlight">432</i>&nbsp;            }
+<i class="no-highlight">433</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">434</i>&nbsp;            redirectAttributes.addAttribute(&quot;error&quot;, &quot;Form not correctly filled, try again&quot;);</b>
+<b class="nc"><i class="no-highlight">435</i>&nbsp;            return &quot;redirect:/newaccountprof&quot;;</b>
+<i class="no-highlight">436</i>&nbsp;
+<i class="no-highlight">437</i>&nbsp;        }
+<i class="no-highlight">438</i>&nbsp;
+<i class="no-highlight">439</i>&nbsp;
+<i class="no-highlight">440</i>&nbsp;    }
+<i class="no-highlight">441</i>&nbsp;
+<i class="no-highlight">442</i>&nbsp;    @RequestMapping(&quot;/newaccountcreatepatient&quot;) //saves the new profile in the repository
+<i class="no-highlight">443</i>&nbsp;    public String newaccountcreatepatient(
+<i class="no-highlight">444</i>&nbsp;            @RequestParam(name=&quot;id&quot;, required=true) Long id,
+<i class="no-highlight">445</i>&nbsp;            @RequestParam(name=&quot;weight&quot;, required=false) String weight,
+<i class="no-highlight">446</i>&nbsp;            Model model, RedirectAttributes redirectAttributes){
+<b class="nc"><i class="no-highlight">447</i>&nbsp;        if (weight != null){</b>
+<b class="nc"><i class="no-highlight">448</i>&nbsp;            Optional&lt;Patient&gt; pt = patientRepository.findById(id);</b>
+<b class="nc"><i class="no-highlight">449</i>&nbsp;            pt.get().getWeight().get(0)[1] = weight;</b>
+<b class="nc"><i class="no-highlight">450</i>&nbsp;            patientRepository.save(pt.get());</b>
+<b class="nc"><i class="no-highlight">451</i>&nbsp;            return &quot;redirect:/signin&quot;;</b>
+<i class="no-highlight">452</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">453</i>&nbsp;        else {  redirectAttributes.addAttribute(&quot;error&quot;, &quot;Form not correctly filled, try again&quot;);</b>
+<b class="nc"><i class="no-highlight">454</i>&nbsp;                return &quot;redirect:/newaccountpatient&quot;;</b>
+<i class="no-highlight">455</i>&nbsp;
+<i class="no-highlight">456</i>&nbsp;                }
+<i class="no-highlight">457</i>&nbsp;
+<i class="no-highlight">458</i>&nbsp;
+<i class="no-highlight">459</i>&nbsp;    }
+<i class="no-highlight">460</i>&nbsp;
+<i class="no-highlight">461</i>&nbsp;
+<i class="no-highlight">462</i>&nbsp;    @RequestMapping(&quot;/showdiet&quot;) //show the details of the selected diet
+<i class="no-highlight">463</i>&nbsp;    public String showdiet(
+<i class="no-highlight">464</i>&nbsp;            @RequestParam(name=&quot;dietid&quot;, required=true) long dietid,
+<i class="no-highlight">465</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patient,
+<i class="no-highlight">466</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=false) long profid,
+<i class="no-highlight">467</i>&nbsp;
+<i class="no-highlight">468</i>&nbsp;            Model model) {
+<b class="nc"><i class="no-highlight">469</i>&nbsp;        List&lt;Option&gt; options = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">470</i>&nbsp;        Diet diet = dietRepository.findById(dietid);</b>
+<b class="nc"><i class="no-highlight">471</i>&nbsp;        for (Option o: optionRepository.findByDiet(diet)){</b>
+<b class="nc"><i class="no-highlight">472</i>&nbsp;            options.add(o);</b>
+<b class="nc"><i class="no-highlight">473</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">474</i>&nbsp;        if (profid == patient)</b>
+<i class="no-highlight">475</i>&nbsp;        {
+<b class="nc"><i class="no-highlight">476</i>&nbsp;            model.addAttribute(&quot;options&quot;, options);</b>
+<b class="nc"><i class="no-highlight">477</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patientRepository.findById(patient).get());</b>
+<b class="nc"><i class="no-highlight">478</i>&nbsp;            model.addAttribute(&quot;diet&quot;, diet);</b>
+<i class="no-highlight">479</i>&nbsp;
+<b class="nc"><i class="no-highlight">480</i>&nbsp;            return &quot;showdiet&quot;;</b>
+<i class="no-highlight">481</i>&nbsp;        }
+<i class="no-highlight">482</i>&nbsp;        else
+<i class="no-highlight">483</i>&nbsp;        {
+<i class="no-highlight">484</i>&nbsp;            //model.addAttribute(&quot;meals&quot;, options);
+<b class="nc"><i class="no-highlight">485</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patientRepository.findById(patient).get());</b>
+<b class="nc"><i class="no-highlight">486</i>&nbsp;            model.addAttribute(&quot;diet&quot;, diet);</b>
+<b class="nc"><i class="no-highlight">487</i>&nbsp;            model.addAttribute(&quot;profid&quot;, profid);</b>
+<b class="nc"><i class="no-highlight">488</i>&nbsp;            return &quot;showdietprof&quot;;</b>
+<i class="no-highlight">489</i>&nbsp;        }
+<i class="no-highlight">490</i>&nbsp;
+<i class="no-highlight">491</i>&nbsp;    }
+<i class="no-highlight">492</i>&nbsp;
+<i class="no-highlight">493</i>&nbsp;    @RequestMapping(&quot;/updateoption&quot;) // updates details of the diet (options) in the repository
+<i class="no-highlight">494</i>&nbsp;    public String updateoption( @RequestParam String submit,
+<i class="no-highlight">495</i>&nbsp;                              @RequestParam Long optionid,
+<i class="no-highlight">496</i>&nbsp;                                @RequestParam String[] meal0 ,
+<i class="no-highlight">497</i>&nbsp;                                @RequestParam String[] meal1 ,
+<i class="no-highlight">498</i>&nbsp;                                @RequestParam String title ,
+<i class="no-highlight">499</i>&nbsp;                              Model model, RedirectAttributes redirectAttributes) {
+<i class="no-highlight">500</i>&nbsp;
+<b class="nc"><i class="no-highlight">501</i>&nbsp;            ArrayList&lt;String[]&gt; meals = new ArrayList&lt;String[]&gt;();</b>
+<b class="nc"><i class="no-highlight">502</i>&nbsp;            for (int i = 0; i &lt; meal0.length; i++) {</b>
+<b class="nc"><i class="no-highlight">503</i>&nbsp;                meals.add(new String[]{meal0[i],meal1[i]});</b>
+<i class="no-highlight">504</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">505</i>&nbsp;            Option option = optionRepository.findById(optionid).get();</b>
+<b class="nc"><i class="no-highlight">506</i>&nbsp;            Diet diet = option.getDiet();</b>
+<b class="nc"><i class="no-highlight">507</i>&nbsp;            option.setMeals(meals);</b>
+<i class="no-highlight">508</i>&nbsp;
+<b class="nc"><i class="no-highlight">509</i>&nbsp;            option.setTitle(title);</b>
+<b class="nc"><i class="no-highlight">510</i>&nbsp;            diet.updateOption(option);</b>
+<b class="nc"><i class="no-highlight">511</i>&nbsp;        if (submit.equals(&quot;Add Meal&quot;)) {</b>
+<b class="nc"><i class="no-highlight">512</i>&nbsp;            option.addMeal(new String[]{&quot;&quot;,&quot;&quot;});</b>
+<b class="nc"><i class="no-highlight">513</i>&nbsp;            diet.updateOption(option);</b>
+<b class="nc"><i class="no-highlight">514</i>&nbsp;            model.addAttribute(&quot;diet&quot;, diet);</b>
+<b class="nc"><i class="no-highlight">515</i>&nbsp;            model.addAttribute(&quot;patient&quot;, diet.getPatient());</b>
+<b class="nc"><i class="no-highlight">516</i>&nbsp;            model.addAttribute(&quot;profid&quot;, diet.getProfessional().getId());</b>
+<i class="no-highlight">517</i>&nbsp;
+<b class="nc"><i class="no-highlight">518</i>&nbsp;            return &quot;showdietprof&quot;;</b>
+<i class="no-highlight">519</i>&nbsp;
+<i class="no-highlight">520</i>&nbsp;        }
+<i class="no-highlight">521</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">522</i>&nbsp;            optionRepository.save(option);</b>
+<b class="nc"><i class="no-highlight">523</i>&nbsp;            redirectAttributes.addAttribute(&quot;dietid&quot;, diet.getId());</b>
+<b class="nc"><i class="no-highlight">524</i>&nbsp;            redirectAttributes.addAttribute(&quot;patientid&quot;, diet.getPatient().getId());</b>
+<b class="nc"><i class="no-highlight">525</i>&nbsp;            redirectAttributes.addAttribute(&quot;profid&quot;, diet.getProfessional().getId());</b>
+<i class="no-highlight">526</i>&nbsp;
+<b class="nc"><i class="no-highlight">527</i>&nbsp;            return &quot;redirect:/showdiet&quot;;</b>
+<i class="no-highlight">528</i>&nbsp;
+<i class="no-highlight">529</i>&nbsp;        }
+<i class="no-highlight">530</i>&nbsp;
+<i class="no-highlight">531</i>&nbsp;
+<i class="no-highlight">532</i>&nbsp;    }
+<i class="no-highlight">533</i>&nbsp;
+<i class="no-highlight">534</i>&nbsp;    @RequestMapping(&quot;/updatediet&quot;) //updates the diet in the repository
+<i class="no-highlight">535</i>&nbsp;    public String updatediet( @RequestParam String goal,
+<i class="no-highlight">536</i>&nbsp;                              @RequestParam String title,
+<i class="no-highlight">537</i>&nbsp;                              @RequestParam String submit,
+<i class="no-highlight">538</i>&nbsp;                              @RequestParam Long dietid,
+<i class="no-highlight">539</i>&nbsp;                              Model model, RedirectAttributes redirectAttributes) {
+<b class="nc"><i class="no-highlight">540</i>&nbsp;        Diet diet = dietRepository.findById(dietid).get();</b>
+<b class="nc"><i class="no-highlight">541</i>&nbsp;        if (submit.equals(&quot;Add Option&quot;)) {</b>
+<b class="nc"><i class="no-highlight">542</i>&nbsp;            ArrayList&lt;String[]&gt; meals = new ArrayList&lt;String[]&gt;();</b>
+<b class="nc"><i class="no-highlight">543</i>&nbsp;            meals.add(new String[]{&quot;&quot;,&quot;&quot;});</b>
+<b class="nc"><i class="no-highlight">544</i>&nbsp;            meals.add(new String[]{&quot;&quot;,&quot;&quot;});</b>
+<b class="nc"><i class="no-highlight">545</i>&nbsp;            Option newoption = new Option(diet,&quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">546</i>&nbsp;            newoption.setMeals(meals);</b>
+<b class="nc"><i class="no-highlight">547</i>&nbsp;            optionRepository.save(newoption);</b>
+<b class="nc"><i class="no-highlight">548</i>&nbsp;            diet.addOption(newoption);</b>
+<b class="nc"><i class="no-highlight">549</i>&nbsp;            diet.setTitle(title);</b>
+<b class="nc"><i class="no-highlight">550</i>&nbsp;            diet.setGoal(goal);</b>
+<b class="nc"><i class="no-highlight">551</i>&nbsp;            model.addAttribute(&quot;diet&quot;, diet);</b>
+<b class="nc"><i class="no-highlight">552</i>&nbsp;            model.addAttribute(&quot;patient&quot;, diet.getPatient());</b>
+<b class="nc"><i class="no-highlight">553</i>&nbsp;            model.addAttribute(&quot;profid&quot;, diet.getProfessional().getId());</b>
+<b class="nc"><i class="no-highlight">554</i>&nbsp;            return &quot;showdietprof&quot;;</b>
+<i class="no-highlight">555</i>&nbsp;
+<i class="no-highlight">556</i>&nbsp;        }
+<i class="no-highlight">557</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">558</i>&nbsp;            diet.setTitle(title);</b>
+<b class="nc"><i class="no-highlight">559</i>&nbsp;            diet.setGoal(goal);</b>
+<b class="nc"><i class="no-highlight">560</i>&nbsp;            dietRepository.save(diet);</b>
+<b class="nc"><i class="no-highlight">561</i>&nbsp;            redirectAttributes.addAttribute(&quot;dietid&quot;, diet.getId());</b>
+<b class="nc"><i class="no-highlight">562</i>&nbsp;            redirectAttributes.addAttribute(&quot;patientid&quot;, diet.getPatient().getId());</b>
+<b class="nc"><i class="no-highlight">563</i>&nbsp;            redirectAttributes.addAttribute(&quot;profid&quot;, diet.getProfessional().getId());</b>
+<i class="no-highlight">564</i>&nbsp;
+<b class="nc"><i class="no-highlight">565</i>&nbsp;            return &quot;redirect:/showdiet&quot;;</b>
+<i class="no-highlight">566</i>&nbsp;
+<i class="no-highlight">567</i>&nbsp;        }
+<i class="no-highlight">568</i>&nbsp;
+<i class="no-highlight">569</i>&nbsp;
+<i class="no-highlight">570</i>&nbsp;    }
+<i class="no-highlight">571</i>&nbsp;
+<i class="no-highlight">572</i>&nbsp;    @RequestMapping(&quot;/showwoplan&quot;) //shows deatils of the selected workoutplan
+<i class="no-highlight">573</i>&nbsp;    public String showwoplan(
+<i class="no-highlight">574</i>&nbsp;            @RequestParam(name=&quot;woplanid&quot;, required=true) long woplan,
+<i class="no-highlight">575</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=false) long patient,
+<i class="no-highlight">576</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=false) long profid,
+<i class="no-highlight">577</i>&nbsp;
+<i class="no-highlight">578</i>&nbsp;            Model model) {
+<b class="nc"><i class="no-highlight">579</i>&nbsp;        List&lt;Workout&gt; workouts = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">580</i>&nbsp;        Optional&lt;WorkoutPlan&gt; workoutPlan = workoutPlanRepository.findById(woplan);</b>
+<b class="nc"><i class="no-highlight">581</i>&nbsp;        for (Workout w: workoutRepository.findByWorkoutPlan(workoutPlan.get())){</b>
+<b class="nc"><i class="no-highlight">582</i>&nbsp;            workouts.add(w);</b>
+<b class="nc"><i class="no-highlight">583</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">584</i>&nbsp;        if (patient == profid) {</b>
+<b class="nc"><i class="no-highlight">585</i>&nbsp;            model.addAttribute(&quot;workouts&quot;, workouts);</b>
+<b class="nc"><i class="no-highlight">586</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patientRepository.findById(patient).get());</b>
+<b class="nc"><i class="no-highlight">587</i>&nbsp;            model.addAttribute(&quot;woplan&quot;, workoutPlan.get());</b>
+<i class="no-highlight">588</i>&nbsp;
+<b class="nc"><i class="no-highlight">589</i>&nbsp;            return &quot;showwoplan&quot;;</b>
+<i class="no-highlight">590</i>&nbsp;        }
+<i class="no-highlight">591</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">592</i>&nbsp;            model.addAttribute(&quot;woplan&quot;, workoutPlan.get());</b>
+<b class="nc"><i class="no-highlight">593</i>&nbsp;            return &quot;showwoplanprof&quot;;</b>
+<i class="no-highlight">594</i>&nbsp;        }
+<i class="no-highlight">595</i>&nbsp;
+<i class="no-highlight">596</i>&nbsp;    }
+<i class="no-highlight">597</i>&nbsp;
+<i class="no-highlight">598</i>&nbsp;    @RequestMapping(&quot;/updateexercise&quot;) //updates details of the workout plan (exercise)
+<i class="no-highlight">599</i>&nbsp;    public String updateoption( @RequestParam String submit,
+<i class="no-highlight">600</i>&nbsp;                                @RequestParam Long workoutid,
+<i class="no-highlight">601</i>&nbsp;                                @RequestParam String[] extitle ,
+<i class="no-highlight">602</i>&nbsp;                                @RequestParam String[] descr ,
+<i class="no-highlight">603</i>&nbsp;                                @RequestParam String[] details ,
+<i class="no-highlight">604</i>&nbsp;                                @RequestParam String title ,
+<i class="no-highlight">605</i>&nbsp;                                @RequestParam (name = &quot;exid&quot;) Long[] exid,
+<i class="no-highlight">606</i>&nbsp;                                Model model, RedirectAttributes redirectAttributes) {
+<i class="no-highlight">607</i>&nbsp;
+<b class="nc"><i class="no-highlight">608</i>&nbsp;        ArrayList&lt;Exercise&gt; exercises = new ArrayList&lt;Exercise&gt;();</b>
+<b class="nc"><i class="no-highlight">609</i>&nbsp;        Workout workout = workoutRepository.findById(workoutid).get();</b>
+<i class="no-highlight">610</i>&nbsp;
+<b class="nc"><i class="no-highlight">611</i>&nbsp;        if (submit.equals(&quot;Add Exercise&quot;)) {</b>
+<b class="nc"><i class="no-highlight">612</i>&nbsp;            for (int i = 0; i &lt; exid.length; i++) {</b>
+<b class="nc"><i class="no-highlight">613</i>&nbsp;                Optional&lt;Exercise&gt;  e = exerciseRepository.findById(exid[i]);</b>
+<b class="nc"><i class="no-highlight">614</i>&nbsp;                if(e.isPresent()) {</b>
+<b class="nc"><i class="no-highlight">615</i>&nbsp;                    Exercise ex = e.get();</b>
+<b class="nc"><i class="no-highlight">616</i>&nbsp;                    ex.updateExercise(extitle[i], descr[i], details[i]);</b>
+<b class="nc"><i class="no-highlight">617</i>&nbsp;                    exercises.add(ex);</b>
+<b class="nc"><i class="no-highlight">618</i>&nbsp;                }</b>
+<i class="no-highlight">619</i>&nbsp;                else {
+<b class="nc"><i class="no-highlight">620</i>&nbsp;                    Exercise ex = new Exercise(workout, extitle[i], descr[i], details[i]);</b>
+<b class="nc"><i class="no-highlight">621</i>&nbsp;                    ex.setId(exid[i]);</b>
+<b class="nc"><i class="no-highlight">622</i>&nbsp;                    exercises.add(ex);</b>
+<i class="no-highlight">623</i>&nbsp;                }
+<i class="no-highlight">624</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">625</i>&nbsp;            WorkoutPlan workoutPlan = workout.getWorkoutPlan();</b>
+<b class="nc"><i class="no-highlight">626</i>&nbsp;            workout.setExercises(exercises);</b>
+<b class="nc"><i class="no-highlight">627</i>&nbsp;            workout.setTitle(title);</b>
+<b class="nc"><i class="no-highlight">628</i>&nbsp;            workoutPlan.updateWorkout(workout);</b>
+<b class="nc"><i class="no-highlight">629</i>&nbsp;            Exercise e = new Exercise(workout, &quot;&quot;, &quot;&quot;, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">630</i>&nbsp;            e.setId(exid[exid.length-1]+1);</b>
+<b class="nc"><i class="no-highlight">631</i>&nbsp;            workout.addExercise(e);</b>
+<b class="nc"><i class="no-highlight">632</i>&nbsp;            workoutPlan.updateWorkout(workout);</b>
+<b class="nc"><i class="no-highlight">633</i>&nbsp;            model.addAttribute(&quot;woplan&quot;, workoutPlan);</b>
+<b class="nc"><i class="no-highlight">634</i>&nbsp;            model.addAttribute(&quot;patient&quot;, workoutPlan.getPatient());</b>
+<b class="nc"><i class="no-highlight">635</i>&nbsp;            model.addAttribute(&quot;profid&quot;, workoutPlan.getProfessional().getId());</b>
+<i class="no-highlight">636</i>&nbsp;
+<b class="nc"><i class="no-highlight">637</i>&nbsp;            return &quot;showwoplanprof&quot;;</b>
+<i class="no-highlight">638</i>&nbsp;
+<i class="no-highlight">639</i>&nbsp;        } else {
+<b class="nc"><i class="no-highlight">640</i>&nbsp;            for (int i = 0; i &lt; exid.length; i++) {</b>
+<b class="nc"><i class="no-highlight">641</i>&nbsp;                Optional&lt;Exercise&gt;  e = exerciseRepository.findById(exid[i]);</b>
+<b class="nc"><i class="no-highlight">642</i>&nbsp;                if(e.isPresent()) {</b>
+<b class="nc"><i class="no-highlight">643</i>&nbsp;                    Exercise ex = e.get();</b>
+<b class="nc"><i class="no-highlight">644</i>&nbsp;                    ex.updateExercise(extitle[i], descr[i], details[i]);</b>
+<b class="nc"><i class="no-highlight">645</i>&nbsp;                    exerciseRepository.save(ex);</b>
+<b class="nc"><i class="no-highlight">646</i>&nbsp;                    exercises.add(ex);</b>
+<b class="nc"><i class="no-highlight">647</i>&nbsp;                }</b>
+<i class="no-highlight">648</i>&nbsp;                else {
+<b class="nc"><i class="no-highlight">649</i>&nbsp;                    Exercise ex = new Exercise(workout, extitle[i], descr[i], details[i]);</b>
+<b class="nc"><i class="no-highlight">650</i>&nbsp;                    exerciseRepository.save(ex);</b>
+<b class="nc"><i class="no-highlight">651</i>&nbsp;                    exercises.add(ex);</b>
+<i class="no-highlight">652</i>&nbsp;                }
+<i class="no-highlight">653</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">654</i>&nbsp;            WorkoutPlan workoutPlan = workout.getWorkoutPlan();</b>
+<b class="nc"><i class="no-highlight">655</i>&nbsp;            workout.setExercises(exercises);</b>
+<b class="nc"><i class="no-highlight">656</i>&nbsp;            workout.setTitle(title);</b>
+<b class="nc"><i class="no-highlight">657</i>&nbsp;            workoutRepository.save(workout);</b>
+<b class="nc"><i class="no-highlight">658</i>&nbsp;            workoutPlan.updateWorkout(workout);</b>
+<b class="nc"><i class="no-highlight">659</i>&nbsp;            workoutPlanRepository.save(workoutPlan);</b>
+<b class="nc"><i class="no-highlight">660</i>&nbsp;            redirectAttributes.addAttribute(&quot;woplanid&quot;, workoutPlan.getId());</b>
+<b class="nc"><i class="no-highlight">661</i>&nbsp;            redirectAttributes.addAttribute(&quot;patientid&quot;, workoutPlan.getPatient().getId());</b>
+<b class="nc"><i class="no-highlight">662</i>&nbsp;            redirectAttributes.addAttribute(&quot;profid&quot;, workoutPlan.getProfessional().getId());</b>
+<i class="no-highlight">663</i>&nbsp;
+<b class="nc"><i class="no-highlight">664</i>&nbsp;            return &quot;redirect:/showwoplan&quot;;</b>
+<i class="no-highlight">665</i>&nbsp;
+<i class="no-highlight">666</i>&nbsp;        }
+<i class="no-highlight">667</i>&nbsp;    }
+<i class="no-highlight">668</i>&nbsp;
+<i class="no-highlight">669</i>&nbsp;    @RequestMapping(&quot;/updatewoplan&quot;) //updates details of the workout plan
+<i class="no-highlight">670</i>&nbsp;    public String updatewoplan( @RequestParam String goal,
+<i class="no-highlight">671</i>&nbsp;                              @RequestParam String title,
+<i class="no-highlight">672</i>&nbsp;                              @RequestParam String submit,
+<i class="no-highlight">673</i>&nbsp;                              @RequestParam Long woplanid,
+<i class="no-highlight">674</i>&nbsp;                              Model model, RedirectAttributes redirectAttributes) {
+<b class="nc"><i class="no-highlight">675</i>&nbsp;        WorkoutPlan workoutPlan = workoutPlanRepository.findById(woplanid).get();</b>
+<b class="nc"><i class="no-highlight">676</i>&nbsp;        if (submit.equals(&quot;Add Workout&quot;)) {</b>
+<b class="nc"><i class="no-highlight">677</i>&nbsp;            ArrayList&lt;Exercise&gt; exercises = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">678</i>&nbsp;            Workout newworkout = new Workout(workoutPlan, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">679</i>&nbsp;            workoutRepository.save(newworkout);</b>
+<b class="nc"><i class="no-highlight">680</i>&nbsp;            Exercise e1 = new Exercise(newworkout, &quot;&quot;, &quot;&quot;, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">681</i>&nbsp;            exerciseRepository.save(e1);</b>
+<b class="nc"><i class="no-highlight">682</i>&nbsp;            exercises.add(e1);</b>
+<b class="nc"><i class="no-highlight">683</i>&nbsp;            Exercise e2 = new Exercise(newworkout, &quot;&quot;, &quot;&quot;, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">684</i>&nbsp;            exerciseRepository.save(e2);</b>
+<b class="nc"><i class="no-highlight">685</i>&nbsp;            exercises.add(e2);</b>
+<b class="nc"><i class="no-highlight">686</i>&nbsp;            newworkout.setExercises(exercises);</b>
+<b class="nc"><i class="no-highlight">687</i>&nbsp;            workoutRepository.save(newworkout);</b>
+<b class="nc"><i class="no-highlight">688</i>&nbsp;            workoutPlan.addWorkout(newworkout);</b>
+<b class="nc"><i class="no-highlight">689</i>&nbsp;            workoutPlan.setTitle(title);</b>
+<b class="nc"><i class="no-highlight">690</i>&nbsp;            workoutPlan.setGoal(goal);</b>
+<b class="nc"><i class="no-highlight">691</i>&nbsp;            model.addAttribute(&quot;woplan&quot;, workoutPlan);</b>
+<b class="nc"><i class="no-highlight">692</i>&nbsp;            model.addAttribute(&quot;patient&quot;, workoutPlan.getPatient());</b>
+<b class="nc"><i class="no-highlight">693</i>&nbsp;            model.addAttribute(&quot;profid&quot;, workoutPlan.getProfessional().getId());</b>
+<b class="nc"><i class="no-highlight">694</i>&nbsp;            return &quot;showwoplanprof&quot;;</b>
+<i class="no-highlight">695</i>&nbsp;
+<i class="no-highlight">696</i>&nbsp;        }
+<i class="no-highlight">697</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">698</i>&nbsp;            workoutPlan.setTitle(title);</b>
+<b class="nc"><i class="no-highlight">699</i>&nbsp;            workoutPlan.setGoal(goal);</b>
+<b class="nc"><i class="no-highlight">700</i>&nbsp;            workoutPlanRepository.save(workoutPlan);</b>
+<b class="nc"><i class="no-highlight">701</i>&nbsp;            redirectAttributes.addAttribute(&quot;woplanid&quot;, workoutPlan.getId());</b>
+<b class="nc"><i class="no-highlight">702</i>&nbsp;            redirectAttributes.addAttribute(&quot;patientid&quot;, workoutPlan.getPatient().getId());</b>
+<b class="nc"><i class="no-highlight">703</i>&nbsp;            redirectAttributes.addAttribute(&quot;profid&quot;, workoutPlan.getProfessional().getId());</b>
+<i class="no-highlight">704</i>&nbsp;
+<b class="nc"><i class="no-highlight">705</i>&nbsp;            return &quot;redirect:/showwoplan&quot;;</b>
+<i class="no-highlight">706</i>&nbsp;
+<i class="no-highlight">707</i>&nbsp;        }
+<i class="no-highlight">708</i>&nbsp;
+<i class="no-highlight">709</i>&nbsp;
+<i class="no-highlight">710</i>&nbsp;    }
+<i class="no-highlight">711</i>&nbsp;
+<i class="no-highlight">712</i>&nbsp;
+<i class="no-highlight">713</i>&nbsp;        @RequestMapping(&quot;/showoption&quot;) //shows the option deatils of a specific diet
+<i class="no-highlight">714</i>&nbsp;    public String showoption(
+<i class="no-highlight">715</i>&nbsp;            @RequestParam(name=&quot;iddiet&quot;, required=true) long diet,
+<i class="no-highlight">716</i>&nbsp;            @RequestParam(name=&quot;idoption&quot;, required=true) long option,
+<i class="no-highlight">717</i>&nbsp;
+<i class="no-highlight">718</i>&nbsp;            Model model) {
+<b class="nc"><i class="no-highlight">719</i>&nbsp;        List&lt;String[]&gt; meals = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">720</i>&nbsp;        for (String[] m: optionRepository.findById(option).getMeals()){</b>
+<b class="nc"><i class="no-highlight">721</i>&nbsp;            meals.add(m);</b>
+<b class="nc"><i class="no-highlight">722</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">723</i>&nbsp;        if (!meals.isEmpty())</b>
+<i class="no-highlight">724</i>&nbsp;        {
+<b class="nc"><i class="no-highlight">725</i>&nbsp;            model.addAttribute(&quot;meals&quot;, meals);</b>
+<b class="nc"><i class="no-highlight">726</i>&nbsp;            model.addAttribute(&quot;patient&quot;, dietRepository.findById(diet).getPatient());</b>
+<b class="nc"><i class="no-highlight">727</i>&nbsp;            model.addAttribute(&quot;diet&quot;, dietRepository.findById(diet));</b>
+<i class="no-highlight">728</i>&nbsp;
+<b class="nc"><i class="no-highlight">729</i>&nbsp;            return &quot;showoption&quot;;</b>
+<i class="no-highlight">730</i>&nbsp;        }
+<i class="no-highlight">731</i>&nbsp;        else
+<i class="no-highlight">732</i>&nbsp;        {
+<b class="nc"><i class="no-highlight">733</i>&nbsp;            return &quot;redirect:/notfound&quot;;</b>
+<i class="no-highlight">734</i>&nbsp;        }
+<i class="no-highlight">735</i>&nbsp;
+<i class="no-highlight">736</i>&nbsp;    }
+<i class="no-highlight">737</i>&nbsp;
+<i class="no-highlight">738</i>&nbsp;    @RequestMapping(&quot;/showworkout&quot;) //shows the workouts details of a specific workout plan
+<i class="no-highlight">739</i>&nbsp;    public String showworkout(
+<i class="no-highlight">740</i>&nbsp;            @RequestParam(name=&quot;idwoplan&quot;, required=true) long woplan,
+<i class="no-highlight">741</i>&nbsp;            @RequestParam(name=&quot;idworkout&quot;, required=true) long workout,
+<i class="no-highlight">742</i>&nbsp;
+<i class="no-highlight">743</i>&nbsp;            Model model) {
+<b class="nc"><i class="no-highlight">744</i>&nbsp;        List&lt;Exercise&gt; exercises = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">745</i>&nbsp;        for (Exercise e: workoutRepository.findById(workout).getExercises()){</b>
+<b class="nc"><i class="no-highlight">746</i>&nbsp;            exercises.add(e);</b>
+<b class="nc"><i class="no-highlight">747</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">748</i>&nbsp;        if (!exercises.isEmpty())</b>
+<i class="no-highlight">749</i>&nbsp;        {
+<b class="nc"><i class="no-highlight">750</i>&nbsp;            model.addAttribute(&quot;exercises&quot;, exercises);</b>
+<b class="nc"><i class="no-highlight">751</i>&nbsp;            model.addAttribute(&quot;patient&quot;, workoutPlanRepository.findById(woplan).get().getPatient());</b>
+<b class="nc"><i class="no-highlight">752</i>&nbsp;            model.addAttribute(&quot;woplan&quot;, workoutPlanRepository.findById(woplan).get());</b>
+<i class="no-highlight">753</i>&nbsp;
+<b class="nc"><i class="no-highlight">754</i>&nbsp;            return &quot;showworkout&quot;;</b>
+<i class="no-highlight">755</i>&nbsp;        }
+<i class="no-highlight">756</i>&nbsp;        else
+<i class="no-highlight">757</i>&nbsp;        {
+<b class="nc"><i class="no-highlight">758</i>&nbsp;            return &quot;redirect:/notfound&quot;;</b>
+<i class="no-highlight">759</i>&nbsp;        }
+<i class="no-highlight">760</i>&nbsp;
+<i class="no-highlight">761</i>&nbsp;    }
+<i class="no-highlight">762</i>&nbsp;
+<i class="no-highlight">763</i>&nbsp;    @RequestMapping(&quot;/adddiet&quot;) //creates a new empty diet
+<i class="no-highlight">764</i>&nbsp;    public String adddiet(
+<i class="no-highlight">765</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patientid,
+<i class="no-highlight">766</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=true) long profid,
+<i class="no-highlight">767</i>&nbsp;            RedirectAttributes redirectAttributes, Model model) {
+<b class="nc"><i class="no-highlight">768</i>&nbsp;        Patient patient = patientRepository.findById(patientid).get();</b>
+<b class="nc"><i class="no-highlight">769</i>&nbsp;        Professional professional = professionalRepository.findById(profid).get();</b>
+<b class="nc"><i class="no-highlight">770</i>&nbsp;        Diet diet = new Diet(patient, professional, &quot;New Diet&quot;, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">771</i>&nbsp;        dietRepository.save(diet);</b>
+<b class="nc"><i class="no-highlight">772</i>&nbsp;        Option option = new Option(diet, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">773</i>&nbsp;        optionRepository.save(option);</b>
+<b class="nc"><i class="no-highlight">774</i>&nbsp;        option.addMeal(new String[]{&quot;&quot;, &quot;&quot;});</b>
+<b class="nc"><i class="no-highlight">775</i>&nbsp;        diet.addOption(option);</b>
+<b class="nc"><i class="no-highlight">776</i>&nbsp;        optionRepository.save(option);</b>
+<b class="nc"><i class="no-highlight">777</i>&nbsp;        dietRepository.save(diet);</b>
+<b class="nc"><i class="no-highlight">778</i>&nbsp;        redirectAttributes.addAttribute(&quot;patientid&quot;, patientid);</b>
+<b class="nc"><i class="no-highlight">779</i>&nbsp;        redirectAttributes.addAttribute(&quot;requesterid&quot;, profid);</b>
+<b class="nc"><i class="no-highlight">780</i>&nbsp;        return &quot;redirect:/patprofile&quot;;</b>
+<i class="no-highlight">781</i>&nbsp;    }
+<i class="no-highlight">782</i>&nbsp;
+<i class="no-highlight">783</i>&nbsp;    @RequestMapping(&quot;/addwoplan&quot;) //creates a new empty workout plan
+<i class="no-highlight">784</i>&nbsp;    public String addwoplan(
+<i class="no-highlight">785</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patientid,
+<i class="no-highlight">786</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=true) long profid,
+<i class="no-highlight">787</i>&nbsp;            RedirectAttributes redirectAttributes, Model model) {
+<b class="nc"><i class="no-highlight">788</i>&nbsp;        Patient patient = patientRepository.findById(patientid).get();</b>
+<b class="nc"><i class="no-highlight">789</i>&nbsp;        Professional professional = professionalRepository.findById(profid).get();</b>
+<b class="nc"><i class="no-highlight">790</i>&nbsp;        WorkoutPlan workoutPlan = new WorkoutPlan(patient, professional, &quot;New Workout Plan&quot;, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">791</i>&nbsp;        workoutPlanRepository.save(workoutPlan);</b>
+<b class="nc"><i class="no-highlight">792</i>&nbsp;        Workout workout = new Workout(workoutPlan, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">793</i>&nbsp;        workoutRepository.save(workout);</b>
+<b class="nc"><i class="no-highlight">794</i>&nbsp;        Exercise exercise = new Exercise(workout, &quot;&quot;, &quot;&quot;, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">795</i>&nbsp;        exerciseRepository.save(exercise);</b>
+<b class="nc"><i class="no-highlight">796</i>&nbsp;        Exercise exercise1 = new Exercise(workout, &quot;&quot;, &quot;&quot;, &quot;&quot;);</b>
+<b class="nc"><i class="no-highlight">797</i>&nbsp;        exerciseRepository.save(exercise1);</b>
+<b class="nc"><i class="no-highlight">798</i>&nbsp;        workout.addExercise(exercise);</b>
+<b class="nc"><i class="no-highlight">799</i>&nbsp;        workout.addExercise(exercise1);</b>
+<b class="nc"><i class="no-highlight">800</i>&nbsp;        workoutPlan.addWorkout(workout);</b>
+<b class="nc"><i class="no-highlight">801</i>&nbsp;        workoutRepository.save(workout);</b>
+<b class="nc"><i class="no-highlight">802</i>&nbsp;        workoutPlanRepository.save(workoutPlan);</b>
+<b class="nc"><i class="no-highlight">803</i>&nbsp;        redirectAttributes.addAttribute(&quot;patientid&quot;, patientid);</b>
+<b class="nc"><i class="no-highlight">804</i>&nbsp;        redirectAttributes.addAttribute(&quot;requesterid&quot;, profid);</b>
+<b class="nc"><i class="no-highlight">805</i>&nbsp;        return &quot;redirect:/patprofile&quot;;</b>
+<i class="no-highlight">806</i>&nbsp;    }
+<i class="no-highlight">807</i>&nbsp;
+<i class="no-highlight">808</i>&nbsp;    @RequestMapping(&quot;/patprofile&quot;) //show deatails of a patient profile
+<i class="no-highlight">809</i>&nbsp;    public String patprofile(
+<i class="no-highlight">810</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) long patientid,
+<i class="no-highlight">811</i>&nbsp;            @RequestParam(name=&quot;requesterid&quot;, required=true) long requesterid,
+<i class="no-highlight">812</i>&nbsp;
+<i class="no-highlight">813</i>&nbsp;
+<i class="no-highlight">814</i>&nbsp;            Model model) {
+<b class="nc"><i class="no-highlight">815</i>&nbsp;        Patient patient = patientRepository.findById(patientid).get();</b>
+<i class="no-highlight">816</i>&nbsp;
+<i class="no-highlight">817</i>&nbsp;
+<b class="nc"><i class="no-highlight">818</i>&nbsp;        if (patientid == requesterid){</b>
+<i class="no-highlight">819</i>&nbsp;
+<b class="nc"><i class="no-highlight">820</i>&nbsp;            List&lt;String[]&gt; weights = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">821</i>&nbsp;            List&lt;Professional&gt; professionals = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">822</i>&nbsp;            for (String[] w : patient.getWeight()) {</b>
+<b class="nc"><i class="no-highlight">823</i>&nbsp;                weights.add(w);</b>
+<b class="nc"><i class="no-highlight">824</i>&nbsp;            }</b>
+<b class="nc"><i class="no-highlight">825</i>&nbsp;            for (Professional pr : patient.getProfessionals()) {</b>
+<b class="nc"><i class="no-highlight">826</i>&nbsp;                professionals.add(pr);</b>
+<b class="nc"><i class="no-highlight">827</i>&nbsp;            }</b>
+<b class="nc"><i class="no-highlight">828</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patient);</b>
+<b class="nc"><i class="no-highlight">829</i>&nbsp;            model.addAttribute(&quot;weights&quot;, weights);</b>
+<b class="nc"><i class="no-highlight">830</i>&nbsp;            model.addAttribute(&quot;professionals&quot;, professionals);</b>
+<i class="no-highlight">831</i>&nbsp;
+<i class="no-highlight">832</i>&nbsp;
+<b class="nc"><i class="no-highlight">833</i>&nbsp;            return &quot;patprofileprivate&quot;;</b>
+<i class="no-highlight">834</i>&nbsp;        }
+<i class="no-highlight">835</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">836</i>&nbsp;            Professional professional = professionalRepository.findById(requesterid).get();</b>
+<b class="nc"><i class="no-highlight">837</i>&nbsp;            List&lt;Diet&gt; diets = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">838</i>&nbsp;            List&lt;WorkoutPlan&gt; workoutplans = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">839</i>&nbsp;            List&lt;String[]&gt; weights = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">840</i>&nbsp;            for (String[] w : patient.getWeight()) {</b>
+<b class="nc"><i class="no-highlight">841</i>&nbsp;                weights.add(w);</b>
+<b class="nc"><i class="no-highlight">842</i>&nbsp;            }</b>
+<b class="nc"><i class="no-highlight">843</i>&nbsp;            for (Diet d: dietRepository.findByPatientAndProfessional(patient, professional)){</b>
+<b class="nc"><i class="no-highlight">844</i>&nbsp;                diets.add(d);</b>
+<b class="nc"><i class="no-highlight">845</i>&nbsp;            }</b>
+<b class="nc"><i class="no-highlight">846</i>&nbsp;            for (WorkoutPlan w: workoutPlanRepository.findByPatientAndProfessional(patient, professional)){</b>
+<b class="nc"><i class="no-highlight">847</i>&nbsp;                workoutplans.add(w);</b>
+<b class="nc"><i class="no-highlight">848</i>&nbsp;            }</b>
+<b class="nc"><i class="no-highlight">849</i>&nbsp;            model.addAttribute(&quot;diets&quot;, diets);</b>
+<b class="nc"><i class="no-highlight">850</i>&nbsp;            model.addAttribute(&quot;workoutplans&quot;, workoutplans );</b>
+<b class="nc"><i class="no-highlight">851</i>&nbsp;            model.addAttribute(&quot;professional&quot;, professional);</b>
+<b class="nc"><i class="no-highlight">852</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patient);</b>
+<b class="nc"><i class="no-highlight">853</i>&nbsp;            model.addAttribute(&quot;weights&quot;, weights);</b>
+<b class="nc"><i class="no-highlight">854</i>&nbsp;            return &quot;patprofileprofessional&quot;;</b>
+<i class="no-highlight">855</i>&nbsp;        }
+<i class="no-highlight">856</i>&nbsp;    }
+<i class="no-highlight">857</i>&nbsp;
+<i class="no-highlight">858</i>&nbsp;    @RequestMapping(&quot;/profprofile&quot;) //shows deatils of a professional profile
+<i class="no-highlight">859</i>&nbsp;    public String profprofile(
+<i class="no-highlight">860</i>&nbsp;            @RequestParam(name=&quot;profid&quot;, required=true) long profid,
+<i class="no-highlight">861</i>&nbsp;            @RequestParam(name=&quot;requesterid&quot;, required=true) long reqid,
+<i class="no-highlight">862</i>&nbsp;            @RequestParam(name=&quot;FirstName&quot;, required=false) String FirstName,
+<i class="no-highlight">863</i>&nbsp;            @RequestParam(name=&quot;LastName&quot;, required=false) String LastName,
+<i class="no-highlight">864</i>&nbsp;            @RequestParam(name=&quot;profession&quot;, required=false) String profession,
+<i class="no-highlight">865</i>&nbsp;            @RequestParam(name=&quot;services&quot;, required=false) String services,
+<i class="no-highlight">866</i>&nbsp;            @RequestParam(name=&quot;my&quot;, required=false) String my,
+<i class="no-highlight">867</i>&nbsp;            Model model) {
+<b class="nc"><i class="no-highlight">868</i>&nbsp;        Professional professional = professionalRepository.findById(profid).get();</b>
+<b class="nc"><i class="no-highlight">869</i>&nbsp;        if (profid == reqid){</b>
+<b class="nc"><i class="no-highlight">870</i>&nbsp;            model.addAttribute(&quot;professional&quot;, professional);</b>
+<b class="nc"><i class="no-highlight">871</i>&nbsp;            return &quot;profprofileprivate&quot;;</b>
+<i class="no-highlight">872</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">873</i>&nbsp;        else if (my != null &amp;&amp; my.equals(&quot;1&quot;)) {</b>
+<b class="nc"><i class="no-highlight">874</i>&nbsp;            Patient patient = patientRepository.findById(reqid).get();</b>
+<b class="nc"><i class="no-highlight">875</i>&nbsp;            model.addAttribute(&quot;professional&quot;, professional);</b>
+<b class="nc"><i class="no-highlight">876</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patient);</b>
+<b class="nc"><i class="no-highlight">877</i>&nbsp;            if (questionnaireRepository.findByProfessionalAndPatient(professional, patient).iterator().hasNext()) {</b>
+<b class="nc"><i class="no-highlight">878</i>&nbsp;                List&lt;Questionnaire&gt; questionnaires = questionnaireRepository.findByProfessionalAndPatient(professional, patient);</b>
+<b class="nc"><i class="no-highlight">879</i>&nbsp;                model.addAttribute(&quot;questionnaire&quot;, questionnaires.iterator().next());</b>
+<b class="nc"><i class="no-highlight">880</i>&nbsp;            }</b>
+<i class="no-highlight">881</i>&nbsp;            else{
+<b class="nc"><i class="no-highlight">882</i>&nbsp;                model.addAttribute(&quot;questionnaire&quot;, &quot;1&quot;);</b>
+<i class="no-highlight">883</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">884</i>&nbsp;            model.addAttribute(&quot;professional&quot;, professional);</b>
+<b class="nc"><i class="no-highlight">885</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patient);</b>
+<b class="nc"><i class="no-highlight">886</i>&nbsp;            return &quot;myprofprofilepublic&quot;;</b>
+<i class="no-highlight">887</i>&nbsp;        }
+<i class="no-highlight">888</i>&nbsp;        else{
+<b class="nc"><i class="no-highlight">889</i>&nbsp;            model.addAttribute(&quot;professional&quot;, professional);</b>
+<b class="nc"><i class="no-highlight">890</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patientRepository.findById(reqid).get());</b>
+<b class="nc"><i class="no-highlight">891</i>&nbsp;            return &quot;profprofilepublic&quot;;</b>
+<i class="no-highlight">892</i>&nbsp;        }
+<i class="no-highlight">893</i>&nbsp;    }
+<i class="no-highlight">894</i>&nbsp;
+<i class="no-highlight">895</i>&nbsp;    @RequestMapping(&quot;/editprofile&quot;) //edits details of a specific profile
+<i class="no-highlight">896</i>&nbsp;    public String editprofile(
+<i class="no-highlight">897</i>&nbsp;            @RequestParam(name=&quot;id&quot;, required=true) long id,
+<i class="no-highlight">898</i>&nbsp;            @RequestParam(name=&quot;firstname&quot;, required=false) String FirstName,
+<i class="no-highlight">899</i>&nbsp;            @RequestParam(name=&quot;lastname&quot;, required=false) String LastName,
+<i class="no-highlight">900</i>&nbsp;            @RequestParam(name=&quot;dateofb&quot;, required=false) String dateofb,
+<i class="no-highlight">901</i>&nbsp;            @RequestParam(name=&quot;username&quot;, required=false) String username,
+<i class="no-highlight">902</i>&nbsp;            @RequestParam(name=&quot;password&quot;, required=false) String password,
+<i class="no-highlight">903</i>&nbsp;            @RequestParam(name=&quot;profession&quot;, required=false) String profession,
+<i class="no-highlight">904</i>&nbsp;            @RequestParam(name=&quot;services&quot;, required=false) String services,
+<i class="no-highlight">905</i>&nbsp;            @RequestParam(name=&quot;weight1&quot;, required=false) String weight1,
+<i class="no-highlight">906</i>&nbsp;            @RequestParam(name=&quot;weight2&quot;, required=false) String weight2,
+<i class="no-highlight">907</i>&nbsp;            Model model, RedirectAttributes redirectAttributes) {
+<b class="nc"><i class="no-highlight">908</i>&nbsp;        Optional&lt;Patient&gt; patient = patientRepository.findById(id);</b>
+<b class="nc"><i class="no-highlight">909</i>&nbsp;        Optional&lt;Professional&gt; professional = professionalRepository.findById(id);</b>
+<b class="nc"><i class="no-highlight">910</i>&nbsp;        if (patient.isPresent()){</b>
+<b class="nc"><i class="no-highlight">911</i>&nbsp;            Patient pt = patient.get();</b>
+<b class="nc"><i class="no-highlight">912</i>&nbsp;            pt.setFirstName(FirstName);</b>
+<b class="nc"><i class="no-highlight">913</i>&nbsp;            pt.setLastName(LastName);</b>
+<b class="nc"><i class="no-highlight">914</i>&nbsp;            pt.setDateOfBirth(dateofb);</b>
+<b class="nc"><i class="no-highlight">915</i>&nbsp;            pt.setUserName(username);</b>
+<b class="nc"><i class="no-highlight">916</i>&nbsp;            pt.setPassword(password);</b>
+<b class="nc"><i class="no-highlight">917</i>&nbsp;            if (!weight1.equals(&quot;&quot;) &amp;&amp; !weight2.equals(&quot;&quot;)) {</b>
+<b class="nc"><i class="no-highlight">918</i>&nbsp;                pt.addWeight(new String[]{weight1, weight2});</b>
+<i class="no-highlight">919</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">920</i>&nbsp;            patientRepository.save(pt);</b>
+<b class="nc"><i class="no-highlight">921</i>&nbsp;            redirectAttributes.addAttribute(&quot;patientid&quot;, pt.getId());</b>
+<b class="nc"><i class="no-highlight">922</i>&nbsp;            return &quot;redirect:/pathome&quot;;</b>
+<i class="no-highlight">923</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">924</i>&nbsp;        else if (professional.isPresent()) {</b>
+<b class="nc"><i class="no-highlight">925</i>&nbsp;            Professional pr = professional.get();</b>
+<b class="nc"><i class="no-highlight">926</i>&nbsp;            pr.setFirstName(FirstName);</b>
+<b class="nc"><i class="no-highlight">927</i>&nbsp;            pr.setLastName(LastName);</b>
+<b class="nc"><i class="no-highlight">928</i>&nbsp;            pr.setDateOfBirth(dateofb);</b>
+<b class="nc"><i class="no-highlight">929</i>&nbsp;            pr.setUserName(username);</b>
+<b class="nc"><i class="no-highlight">930</i>&nbsp;            pr.setPassword(password);</b>
+<b class="nc"><i class="no-highlight">931</i>&nbsp;            pr.setProfession(profession);</b>
+<b class="nc"><i class="no-highlight">932</i>&nbsp;            pr.setServices(services);</b>
+<b class="nc"><i class="no-highlight">933</i>&nbsp;            professionalRepository.save(pr);</b>
+<b class="nc"><i class="no-highlight">934</i>&nbsp;            redirectAttributes.addAttribute(&quot;profid&quot;, pr.getId());</b>
+<b class="nc"><i class="no-highlight">935</i>&nbsp;            return &quot;redirect:/profhome&quot;;</b>
+<i class="no-highlight">936</i>&nbsp;        }
+<i class="no-highlight">937</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">938</i>&nbsp;            return &quot;redirect:/error&quot;;</b>
+<i class="no-highlight">939</i>&nbsp;        }
+<i class="no-highlight">940</i>&nbsp;    }
+<i class="no-highlight">941</i>&nbsp;
+<i class="no-highlight">942</i>&nbsp;
+<i class="no-highlight">943</i>&nbsp;
+<i class="no-highlight">944</i>&nbsp;
+<i class="no-highlight">945</i>&nbsp;    @RequestMapping(&quot;/searchprof&quot;) //redirects to the page to search a professional in the repository
+<i class="no-highlight">946</i>&nbsp;    public String searchprof(
+<i class="no-highlight">947</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) Long patientid,
+<i class="no-highlight">948</i>&nbsp;            @RequestParam(name=&quot;professionals&quot;, required=false) List&lt;Professional&gt; professionals,
+<i class="no-highlight">949</i>&nbsp;            @RequestParam(name=&quot;FirstName&quot;, required=false) String FirstName,
+<i class="no-highlight">950</i>&nbsp;            @RequestParam(name=&quot;LastName&quot;, required=false) String LastName,
+<i class="no-highlight">951</i>&nbsp;            @RequestParam(name=&quot;profession&quot;, required=false) String profession,
+<i class="no-highlight">952</i>&nbsp;            @RequestParam(name=&quot;services&quot;, required=false) String services,
+<i class="no-highlight">953</i>&nbsp;
+<i class="no-highlight">954</i>&nbsp;            Model model) {
+<b class="nc"><i class="no-highlight">955</i>&nbsp;            model.addAttribute(&quot;patient&quot;, patientRepository.findById(patientid).get());</b>
+<b class="nc"><i class="no-highlight">956</i>&nbsp;            model.addAttribute(&quot;professionals&quot;, professionals);</b>
+<b class="nc"><i class="no-highlight">957</i>&nbsp;            model.addAttribute(&quot;FirstName&quot;, FirstName);</b>
+<b class="nc"><i class="no-highlight">958</i>&nbsp;            model.addAttribute(&quot;LastName&quot;, LastName);</b>
+<b class="nc"><i class="no-highlight">959</i>&nbsp;            model.addAttribute(&quot;profession&quot;, profession);</b>
+<b class="nc"><i class="no-highlight">960</i>&nbsp;            model.addAttribute(&quot;services&quot;, services);</b>
+<i class="no-highlight">961</i>&nbsp;
+<b class="nc"><i class="no-highlight">962</i>&nbsp;            return &quot;searchprof&quot;;</b>
+<i class="no-highlight">963</i>&nbsp;        }
+<i class="no-highlight">964</i>&nbsp;
+<i class="no-highlight">965</i>&nbsp;    @RequestMapping(&quot;/searchprofpost&quot;) //seraches the professional based on the input fields and return the list
+<i class="no-highlight">966</i>&nbsp;    public String searchprofpost(
+<i class="no-highlight">967</i>&nbsp;            @RequestParam(name=&quot;patientid&quot;, required=true) Long patientid,
+<i class="no-highlight">968</i>&nbsp;            @RequestParam(name=&quot;FirstName&quot;, required=false) String FirstName,
+<i class="no-highlight">969</i>&nbsp;            @RequestParam(name=&quot;LastName&quot;, required=false) String LastName,
+<i class="no-highlight">970</i>&nbsp;            @RequestParam(name=&quot;profession&quot;, required=false) String profession,
+<i class="no-highlight">971</i>&nbsp;            @RequestParam(name=&quot;services&quot;, required=false) String services,
+<i class="no-highlight">972</i>&nbsp;            Model model, RedirectAttributes redirectAttributes) {
+<b class="nc"><i class="no-highlight">973</i>&nbsp;        List&lt;Professional&gt; professionals1 = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">974</i>&nbsp;        FirstName.trim();</b>
+<b class="nc"><i class="no-highlight">975</i>&nbsp;        List&lt;Professional&gt; professionals2 = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">976</i>&nbsp;        LastName.trim();</b>
+<b class="nc"><i class="no-highlight">977</i>&nbsp;        List&lt;Professional&gt; professionals3 = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">978</i>&nbsp;        profession.trim();</b>
+<b class="nc"><i class="no-highlight">979</i>&nbsp;        List&lt;Professional&gt; professionals4 = new LinkedList&lt;&gt;();</b>
+<b class="nc"><i class="no-highlight">980</i>&nbsp;        services.trim();</b>
+<b class="nc"><i class="no-highlight">981</i>&nbsp;        if (!LastName.equals(&quot; &quot;)){</b>
+<i class="no-highlight">982</i>&nbsp;
+<b class="nc"><i class="no-highlight">983</i>&nbsp;            for (Professional pr: professionalRepository.findByLastNameIgnoreCase(LastName)){</b>
+<b class="nc"><i class="no-highlight">984</i>&nbsp;                professionals1.add(pr);</b>
+<b class="nc"><i class="no-highlight">985</i>&nbsp;            }</b>
+<i class="no-highlight">986</i>&nbsp;        }
+<i class="no-highlight">987</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">988</i>&nbsp;            for (Professional pr: professionalRepository.findAll()){</b>
+<b class="nc"><i class="no-highlight">989</i>&nbsp;                professionals1.add(pr);</b>
+<b class="nc"><i class="no-highlight">990</i>&nbsp;            }</b>
+<i class="no-highlight">991</i>&nbsp;
+<i class="no-highlight">992</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">993</i>&nbsp;        if (!FirstName.equals(&quot; &quot;)){</b>
+<b class="nc"><i class="no-highlight">994</i>&nbsp;            professionals2 = professionalRepository.findByFirstNameIgnoreCase(FirstName);</b>
+<i class="no-highlight">995</i>&nbsp;        }
+<i class="no-highlight">996</i>&nbsp;        else{
+<b class="nc"><i class="no-highlight">997</i>&nbsp;            for (Professional pr: professionalRepository.findAll()){</b>
+<b class="nc"><i class="no-highlight">998</i>&nbsp;                professionals2.add(pr);</b>
+<b class="nc"><i class="no-highlight">999</i>&nbsp;            }</b>
+<i class="no-highlight">1000</i>&nbsp;
+<i class="no-highlight">1001</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">1002</i>&nbsp;        if (!profession.equals(&quot; &quot;)){</b>
+<i class="no-highlight">1003</i>&nbsp;
+<i class="no-highlight">1004</i>&nbsp;
+<b class="nc"><i class="no-highlight">1005</i>&nbsp;            for (Professional pr: professionalRepository.findByProfessionContainingIgnoreCase(profession)){</b>
+<i class="no-highlight">1006</i>&nbsp;
+<b class="nc"><i class="no-highlight">1007</i>&nbsp;                    professionals3.add(pr);</b>
+<b class="nc"><i class="no-highlight">1008</i>&nbsp;            }</b>
+<i class="no-highlight">1009</i>&nbsp;
+<i class="no-highlight">1010</i>&nbsp;        }
+<i class="no-highlight">1011</i>&nbsp;        else{
+<b class="nc"><i class="no-highlight">1012</i>&nbsp;            for (Professional pr: professionalRepository.findAll()){</b>
+<b class="nc"><i class="no-highlight">1013</i>&nbsp;                professionals3.add(pr);</b>
+<b class="nc"><i class="no-highlight">1014</i>&nbsp;            }</b>
+<i class="no-highlight">1015</i>&nbsp;
+<i class="no-highlight">1016</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">1017</i>&nbsp;        String[] cleanservices = services.split(&quot;\\s*,\\s*&quot;);</b>
+<b class="nc"><i class="no-highlight">1018</i>&nbsp;        if (!services.equals(&quot; &quot;)){</b>
+<i class="no-highlight">1019</i>&nbsp;
+<b class="nc"><i class="no-highlight">1020</i>&nbsp;            for (Professional pr: professionalRepository.findAll()){</b>
+<b class="nc"><i class="no-highlight">1021</i>&nbsp;                boolean b = true;</b>
+<b class="nc"><i class="no-highlight">1022</i>&nbsp;                for (String s: cleanservices) {</b>
+<b class="nc"><i class="no-highlight">1023</i>&nbsp;                    if (!pr.getServices().toLowerCase().contains(s.toLowerCase()))</b>
+<b class="nc"><i class="no-highlight">1024</i>&nbsp;                        b = false;</b>
+<i class="no-highlight">1025</i>&nbsp;                    break;
+<i class="no-highlight">1026</i>&nbsp;                }
+<b class="nc"><i class="no-highlight">1027</i>&nbsp;                if (b){</b>
+<b class="nc"><i class="no-highlight">1028</i>&nbsp;                    professionals4.add(pr);</b>
+<i class="no-highlight">1029</i>&nbsp;                }
+<b class="nc"><i class="no-highlight">1030</i>&nbsp;            }</b>
+<i class="no-highlight">1031</i>&nbsp;
+<i class="no-highlight">1032</i>&nbsp;        }
+<i class="no-highlight">1033</i>&nbsp;        else{
+<b class="nc"><i class="no-highlight">1034</i>&nbsp;            for (Professional pr: professionalRepository.findAll()){</b>
+<b class="nc"><i class="no-highlight">1035</i>&nbsp;                professionals4.add(pr);</b>
+<b class="nc"><i class="no-highlight">1036</i>&nbsp;            }</b>
+<i class="no-highlight">1037</i>&nbsp;
+<i class="no-highlight">1038</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">1039</i>&nbsp;        List&lt;Professional&gt; professionals = new LinkedList&lt;&gt;(professionals1);</b>
+<b class="nc"><i class="no-highlight">1040</i>&nbsp;        professionals.retainAll(professionals2);</b>
+<b class="nc"><i class="no-highlight">1041</i>&nbsp;        professionals.retainAll(professionals3);</b>
+<b class="nc"><i class="no-highlight">1042</i>&nbsp;        professionals.retainAll(professionals4);</b>
+<i class="no-highlight">1043</i>&nbsp;
+<b class="nc"><i class="no-highlight">1044</i>&nbsp;        redirectAttributes.addAttribute(&quot;patientid&quot;, patientid);</b>
+<b class="nc"><i class="no-highlight">1045</i>&nbsp;        redirectAttributes.addAttribute(&quot;professionals&quot;, professionals);</b>
+<b class="nc"><i class="no-highlight">1046</i>&nbsp;        redirectAttributes.addAttribute(&quot;FirstName&quot;, FirstName);</b>
+<b class="nc"><i class="no-highlight">1047</i>&nbsp;        redirectAttributes.addAttribute(&quot;LastName&quot;, LastName);</b>
+<b class="nc"><i class="no-highlight">1048</i>&nbsp;        redirectAttributes.addAttribute(&quot;profession&quot;, profession);</b>
+<b class="nc"><i class="no-highlight">1049</i>&nbsp;        redirectAttributes.addAttribute(&quot;services&quot;, services);</b>
+<i class="no-highlight">1050</i>&nbsp;
+<i class="no-highlight">1051</i>&nbsp;
+<b class="nc"><i class="no-highlight">1052</i>&nbsp;        return &quot;redirect:/searchprof&quot;;</b>
+<i class="no-highlight">1053</i>&nbsp;    }
+<i class="no-highlight">1054</i>&nbsp;
+<i class="no-highlight">1055</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-02-17 15:04</div>
+</div>
+</body>
+</html>

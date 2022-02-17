@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="float:left; width: 20%;" align="left" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 60%;" align="center">
+        <tr>
+            <th align="center">
+                <div>First Name and Last Name: </div>
+            </th>
+            <td align="center">
+                <div readonly class="col-md-12" th:text="${patient.getFirstName() + ' ' + patient.getLastName()}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th align="center">
+                <div>Date of Birth: </div>
+            </th>
+            <td align="center">
+                <div readonly class="col-md-12" th:text="${patient.getDateofBirth()}"></div>
+            </td>
+        </tr>
+
+        <tr>
+                <th align="center">
+                    Weight records:
+                </th>
+                <td align="center" th:each="weight: ${patient.getWeight()}">
+                    <div class="col-md-12" th:text="${'On ' + weight[0] + ': ' + weight[1] + 'kg'}"></div>
+                </td>
+        </tr>
+    </table>
+    <table style="float:left; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a th:href="@{profhome(profid=${professional.getId()})}">Back</a></div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<div style="clear:both; ">
+</div>
+
+<div style="clear:both; ">
+</div>
+
+        <table align="center">
+            <tr>
+                <th class="col-md-12" align="center"><h4 class="col-md-12" align="center">Request Details</h4></th>
+            </tr>
+            <br>
+            <tr>
+                <th class="col-md-12" align="center">Services requested</th>
+            </tr>
+            <tr>
+                <td class="col-md-12" align="center" th:text="${request.getServices()}">Services requested</td>
+            </tr>
+            <br>
+            <tr>
+                <th class="col-md-12" align="center">Message from the Patient</th>
+            </tr>
+            <tr>
+                <td class="col-md-12" align="center" th:text="${request.getMessage()}">Message</td>
+            </tr>
+        </table>
+        <br>
+        <form th:if="${questionnairesel == '0'}" align="center" action="/sendquestionnaire">
+            <input type="text" th:value="${patient.getId()}" name="patientid" hidden>
+            <input type="text" th:value="${professional.getId()}" name="profid" hidden >
+            <input type="text" th:value="${request.getId()}" name="reqid" hidden >
+            <input type="submit" name="submit" value="Accept Request and create questionnaire" align="center"><input type="submit" name="submit" value="Accept Request without questionnaire" align="center" hidden>
+        </form>
+        <form th:if="${questionnairesel == '1'}" align="center" action="/sendquestionnaire">
+            <input type="text" th:value="${patient.getId()}" name="patientid" hidden>
+            <input type="text" th:value="${professional.getId()}" name="profid" hidden >
+            <input type="text" th:value="${request.getId()}" name="reqid" hidden >
+            <div class="col-md-12" th:each="q: ${questionnaire.getQuestions()}" align="center">
+                <span th:text="${'Question ' + qStat.index}" align="center"></span><input type="text" th:value="${q}" name="question" align="center">
+            <br>
+            </div>
+            <input type="submit" name="submit" value="Send Questionnaire" align="center"><input name="submit" type="submit" value="Add Question" align="center">
+        </form>
+
+
+
+
+
+
+
+
+</body>
+</html>
+

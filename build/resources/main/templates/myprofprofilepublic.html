@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="float:right; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a th:href="@{pathome(patientid=${patient.getId()})}">Back</a></div>
+            </td>
+
+        </tr>
+    </table>
+    <table style="float:right; width: 60%;" align="center" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div align="center" class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:right; width: 20%;" align="left">
+    </table>
+
+
+</div>
+<div style="clear:both; ">
+</div>
+
+<table style="width: 80%;" align="center">
+    <tr>
+        <td align="center">
+            First Name and Last Name: <div class="col-md-12" th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            Date of Birth: <div class="col-md-12" th:text="${professional.getDateofBirth()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            Profession: <div class="col-md-12" th:text="${professional.getProfession()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            Services: <div class="col-md-12" th:text="${professional.getServices()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            Average rate: <div class="col-md-12" th:text="${professional.getRate()}"></div>
+        </td>
+    </tr>
+</table>
+<br>
+
+<div th:if="${questionnaire == '1'}"></div>
+<div th:unless="${questionnaire == '1'}">
+
+
+    <table style="width: 80%;" th:if="${questionnaire.isAnswered()}" align="center">
+        <tr>
+            <th align="center">
+                <div class="col-md-12">Filled Questionnaire</div>
+            </th>
+        </tr>
+        <tr th:each="question: ${questionnaire.getQuestions()}">
+            <td align="center">
+                <div class="col-md-12"><span class="col-md-12" th:text="${'Question ' + questionStat.index + ': '}"></span>
+                    <span class="col-md-12" th:text="${question}"></span></div>
+            </td>
+            <td align="center">
+                <div class="col-md-12"><span class="col-md-12" th:text="${'Answer ' + questionStat.index + ': '}"></span>
+                    <span th:text="${questionnaire.getAnswers().get(__${questionStat.index}__)}" class="col-md-12"></span></div>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+
+    <form th:unless="${questionnaire.isAnswered()}" action="/sendfilledquestionnaire">
+        <div class="col-md-12"><input th:value="${patient.getId()}" name="patientid" hidden></div>
+        <div class="col-md-12"><input th:value="${questionnaire.getId()}" name="questionnaireid" hidden></div>
+        <table style="width: 80%;" align="center">
+            <tr>
+                <th th:if="${questionnaire.isAnswered()}" align="center">
+                    <div class="col-md-12">Filled Questionnaire</div>
+                </th>
+                <th th:unless="${questionnaire.isAnswered()}" align="center">
+                    <div align="center" class="col-md-12">Please fill in the following questionnaire</div>
+                </th>
+            </tr>
+            <tr th:each="question: ${questionnaire.getQuestions()}">
+                <td align="center">
+                    <div class="col-md-12"><span class="col-md-12" th:text="${'Question ' + questionStat.index + ': '}"></span>
+                        <span class="col-md-12" th:text="${question}"></span></div>
+                </td>
+                <td th:unless="${questionnaire.isAnswered()}" align="center">
+                    <div class="col-md-12"><span class="col-md-12" th:text="${'Answer ' + questionStat.index + ': '}"></span>
+                        <input th:value="${questionnaire.getAnswers().get(__${questionStat.index}__)}" name="answer" class="col-md-12"></div>
+                </td>
+                <td th:if="${questionnaire.isAnswered()}" align="center">
+                    <div class="col-md-12"><span class="col-md-12" th:text="${'Answer ' + questionStat.index + ': '}"></span>
+                        <span th:text="${questionnaire.getAnswers().get(__${questionStat.index}__)}" class="col-md-12"></span></div>
+                </td>
+            </tr>
+            <tr th:unless="${questionnaire.isAnswered()}">
+                <td align="center">
+                    <div class="col-md-12" ><input type="submit" value="Send filled questionnaire" name="submit" class="col-md-12"></div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+</body>
+</html>
+

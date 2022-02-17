@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="float:right; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a th:href="@{searchprofpost(patientid=${patient.getId()}, FirstName=${FirstName}, LastName=${LastName}, profession=${profession}, services=${services})}">Back</a></div>
+            </td>
+
+        </tr>
+    </table>
+    <table style="float:right; width: 60%;" align="center" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div align="center" class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:right; width: 20%;" align="left">
+    </table>
+
+
+</div>
+<div style="clear:both; ">
+</div>
+
+<table style="width: 80%;" align="center">
+    <tr>
+        <td align="center">
+            First Name and Last Name: <div class="col-md-12" th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            Date of Birth: <div class="col-md-12" th:text="${professional.getDateofBirth()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            Profession: <div class="col-md-12" th:text="${professional.getProfession()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            Services: <div class="col-md-12" th:text="${professional.getServices()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            Average rate: <div class="col-md-12" th:text="${professional.getRate()}"></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <div class="col-md-12" th:text=" 'Would you like to contact ' + ${professional.getFirstName() + '? fill in and submit the form below'}" ></div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <form action="patientrequest" method="post">
+                <div class="col-md-12" align="center" ><input type="text" name="patientid" th:value="${patient.getId()}" hidden></div>
+                <div class="col-md-12" align="center" ><input type="text" name="profid" th:value="${professional.getId()}" hidden></div>
+                <div class="col-md-12" align="center" > Services you are requesting:<input type="text" value="" placeholder="e.g. diet plan" name="services" ></div>
+                <div class="col-md-12" align="center" >Write a message:<input type="text" value="" name="message"></div>
+                <div class="col-md-12" align="center" ><input type="submit" value="Send Request" /></div>
+            </form>
+        </td>
+    </tr>
+
+
+
+
+</table>
+
+
+
+
+
+
+</body>
+</html>
+

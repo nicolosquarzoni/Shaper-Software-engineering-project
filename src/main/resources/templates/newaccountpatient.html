@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<h1 align="center">CEATE NEW ACCOUNT 2/2</h1>
+<h3 align="center">Fill in the form with your personal deatils</h3>
+<form name="newaccountcreatepatient" action="newaccountcreatepatient" method="POST">
+    <div align="center">
+        <table>
+            <tr>
+                <td>Assigned Id</td>
+                <td><input type="text" th:value="${id}" name="id" readonly/></td>
+            </tr>
+            <tr>
+                <td>Weight</td>
+                <td><input type="text" name="weight" /></td>
+                <td>Kg</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+
+        </table>
+        <div style="color: red" th:text="${error}"></div>
+
+
+    </div>
+</form>
+</body>
+</html>

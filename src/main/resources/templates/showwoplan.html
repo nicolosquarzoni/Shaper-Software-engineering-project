@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="float:left; width: 20%;" align="left" >
+        <tr>
+            <td>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 60%;" align="center">
+        <tr>
+
+            <td colspan="300">
+                <h1 class="col-md-12" align="center" th:text="${woplan.getTitle()}" >Titolo</h1>
+                <h3 class="col-md-12" align="center" th:text="${woplan.getGoal()}">Obbiettivo</h3>
+                <h4 class="col-md-12" align="center" th:text="${'Professionista: ' + woplan.getProfessional().getFirstName() + ' ' + woplan.getProfessional().getLastName()  }">Professional</h4>
+
+
+            </td>
+
+
+        </tr>
+    </table>
+    <table style="float:left; width: 20%;" align="right">
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="col-md-12" align="right"><a th:href="@{pathome(patientid=${patient.getId()})}">Home</a></div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<div style="clear:both; ">
+</div>
+<table>
+    <tr>
+        <td>
+            <div class="col-md-12" th:text="${patient.getFirstName() + ' ' + patient.getLastName()}">Name and Surname</div>
+            <div class="col-md-12"><a href="">View/Edit Profile</a></div>
+        </td>
+    </tr>
+</table>
+<div style="clear:both; ">
+</div>
+
+    <table style="width: 80%;" align="center">
+
+        <tr th:each="workout: ${workouts}" align="center">
+            <td>
+                <div th:text="${'Workout ' + workout.getId()}"> Id </div>
+                <div> <a th:text="${workout.getTitle()}" th:href="@{showworkout(idworkout=${workout.getId()}, idwoplan=${woplan.getId()})}">Title</a></div>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+
+
+
+</body>
+</html>
+

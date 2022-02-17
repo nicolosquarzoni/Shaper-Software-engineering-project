@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width" name="viewport" />
+    <style>
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+<table style="float:left; width: 20%;" align="left" >
+    <tr>
+        <td>
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-3 border-right">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+                    </div>
+
+                </div>
+            </div>
+        </td>
+
+
+    </tr>
+</table>
+<table style="float:left; width: 60%;" align="center">
+    <tr>
+
+        <td colspan="300">
+            <h1 class="col-md-12" align="center">Shaper</h1>
+            <h3 class="col-md-12" align="center">The Way of Fittness</h3>
+
+        </td>
+
+
+    </tr>
+</table>
+<table style="float:left; width: 20%;" align="right">
+    <tr>
+        <td>
+        </td>
+        <td>
+            <div class="col-md-12" align="right"><a href="/signin">Logout</a></div>
+        </td>
+
+    </tr>
+</table>
+</div>
+<div style="clear:both; ">
+</div>
+<table>
+    <tr>
+        <td>
+            <div class="col-md-12" th:text="${professional.getFirstName() + ' ' + professional.getLastName()}">Nome</div>
+            <div class="col-md-12"><a th:href="@{profprofile(profid=${professional.getId()}, requesterid=${professional.getId()})}">View/Edit Profile</a></div>
+        </td>
+    </tr>
+</table>
+
+<table style="float:left; width: 40%;" align="center">
+    <tr>
+        <td>
+            <h3 class="col-md-12">Patients</h3>
+
+        </td>
+    </tr>
+    <tr th:each="pt:${professional.getPatients()}">
+        <td>
+            <div align="center" class="col-md-12"><a th:text="${pt.getFirstName() + ' ' + pt.getLastName()}" th:href="@{patprofile(patientid=${pt.getId()}, requesterid=${professional.getId()})}">Patients</a></div>
+
+        </td>
+    </tr>
+</table>
+
+<table style="float:left; width: 40%;" align="center">
+    <tr>
+        <td>
+            <h3 class="col-md-12">Patient Requests</h3>
+
+        </td>
+    </tr>
+    <tr th:each="r:${requests}">
+        <td>
+            <div align="center" class="col-md-12"><a th:text="${r.getPatient().getFirstName() + ' ' + r.getPatient().getLastName()}" th:href="@{showrequest(reqid=${r.getId()})}">Patients</a></div>
+
+        </td>
+    </tr>
+</table>
+
+
+
+</body>
+</html>
+

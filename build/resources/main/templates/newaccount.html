@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SHAPER---the app for getting in shape</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<h1 align="center">CEATE NEW ACCOUNT 1/2</h1>
+<h3 align="center">Fill in the form with your general information</h3>
+<form name="newaccountcreate" action="newaccountcreate" method="POST">
+    <div align="center">
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" name="firstName" /></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" name="lastName" /></td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td><input type="text" name="dateofbirth"></td>
+            </tr>
+            <tr>
+                <td>Account type</td>
+                <td><input type="radio" id="professional" name="account" value="pro">
+                    <label for="professional">PROFESSIONAL</label></td>
+                <td><input type="radio" id="patient" name="account" value="pat">
+                    <label for="patient">PATIENT</label></td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="userName" /></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password" /></td>
+            </tr>
+            <tr>
+                <td>Repeat Password</td>
+                <td><input type="password" name="repeatpassword" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Next" /></td>
+            </tr>
+        </table>
+        <div style="color: red" th:text="${error}"></div>
+
+    </div>
+</form>
+</body>
+</html>
